@@ -1,9 +1,529 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Prompt Alchemy — Khai Tran</title></head>
-<body style="background:#060910;color:#e8edf5;font-family:sans-serif;padding:80px 40px;">
-  <a href="../index.html" style="color:#06b6d4;font-size:13px;">← Back to Portfolio</a>
-  <h1 style="margin-top:32px;font-size:36px;">Prompt Alchemy</h1>
-  <p style="color:#5a6a85;margin-top:12px;">Full case study coming soon.</p>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Alchemy — Khai Tran</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4efe6; --surface:#eae3d8; --surface2:#e2dbd0;
+  --border:#d0c9bc; --border2:#bdb5a8;
+  --text:#1d1d1f; --text-2:#3a3a3c; --text-3:#6e6e73; --text-4:#aeaeb2;
+  --mkt:#e85d04; --tech:#0077b6; --inter:#7c3aed;
+  --positive:#2ce247; --warn:#b45309; --green:#166534; --pink:#be185d; --blue:#1d4ed8;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Google Sans Code',monospace;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");background-size:180px 180px;opacity:0.028;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:rgba(244,239,230,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 48px;justify-content:space-between;}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-dot{width:9px;height:9px;border-radius:50%;background:var(--inter);box-shadow:0 0 10px rgba(124,58,237,0.45);animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.72);}}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.18s;}
+.nav-links a:hover{color:var(--text);}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--inter);border:1.5px solid rgba(124,58,237,0.35);background:rgba(124,58,237,0.05);padding:7px 18px;border-radius:24px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background 0.18s,border-color 0.18s;}
+.nav-back:hover{background:rgba(124,58,237,0.11);border-color:var(--inter);}
+.nav-back::before{content:'←';}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);flex-direction:column;gap:5px;align-items:flex-end;}
+.nav-hamburger span{display:block;height:1.5px;background:var(--text);border-radius:2px;transition:all 0.25s ease;}
+.nav-hamburger span:nth-child(1){width:22px;}.nav-hamburger span:nth-child(2){width:15px;}.nav-hamburger span:nth-child(3){width:22px;}
+
+/* HERO */
+.page-hero{min-height:70vh;display:flex;align-items:center;padding:100px 48px 72px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.blob-wrap{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(72px);mix-blend-mode:multiply;animation:blobFloat 8s ease-in-out infinite;}
+.blob-1{width:480px;height:480px;background:radial-gradient(circle,rgba(124,58,237,0.26) 0%,rgba(124,58,237,0) 70%);top:-80px;left:-60px;}
+.blob-2{width:380px;height:380px;background:radial-gradient(circle,rgba(190,24,93,0.18) 0%,rgba(190,24,93,0) 70%);top:5%;right:5%;animation-delay:2s;}
+.blob-3{width:320px;height:320px;background:radial-gradient(circle,rgba(0,119,182,0.15) 0%,rgba(0,119,182,0) 70%);bottom:0;left:40%;animation-delay:4s;}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.97);}}
+.hero-inner{position:relative;z-index:2;width:100%;}
+.hero-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:22px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.6s 0.1s ease forwards;}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--text-3);border-radius:2px;}
+.hero-title{font-size:clamp(42px,6vw,72px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:22px;opacity:0;animation:fadeUp 0.6s 0.18s ease forwards;}
+.hero-title span{color:var(--inter);}
+
+.winner-badge{display:inline-flex;align-items:center;gap:14px;background:rgba(180,83,9,0.07);border:1.5px solid rgba(180,83,9,0.28);border-radius:12px;padding:14px 22px;margin-bottom:28px;opacity:0;animation:fadeUp 0.6s 0.26s ease forwards;}
+.winner-icon{font-size:26px;}
+.winner-title{font-size:14px;font-weight:700;color:var(--warn);margin-bottom:3px;}
+.winner-sub{font-size:11px;font-weight:300;color:var(--text-3);}
+
+.hero-desc{font-size:15px;font-weight:300;color:var(--text-2);line-height:1.78;max-width:640px;margin-bottom:32px;opacity:0;animation:fadeUp 0.6s 0.32s ease forwards;}
+.hero-desc strong{color:var(--text);font-weight:500;}
+
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;opacity:0;animation:fadeUp 0.6s 0.38s ease forwards;}
+.mpill{font-size:10px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,0.55);color:var(--text-3);}
+.mpill.int{color:var(--inter);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06);}
+.mpill.mkt{color:var(--mkt);border-color:rgba(232,93,4,0.3);background:rgba(232,93,4,0.06);}
+.mpill.tech{color:var(--tech);border-color:rgba(0,119,182,0.3);background:rgba(0,119,182,0.06);}
+.mpill.warn{color:var(--warn);border-color:rgba(180,83,9,0.3);background:rgba(180,83,9,0.06);}
+
+.stats-row{display:flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.42);backdrop-filter:blur(8px);opacity:0;animation:fadeUp 0.6s 0.44s ease forwards;max-width:700px;}
+.stat-item{flex:1;padding:16px 20px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-size:22px;font-weight:800;line-height:1;margin-bottom:5px;color:var(--positive);}
+.stat-val.inter{color:var(--inter);}.stat-val.warn{color:var(--warn);}.stat-val.tech{color:var(--tech);}
+.stat-lbl{font-size:8.5px;font-weight:400;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;}
+
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto;padding:0 48px 72px;position:relative;z-index:1;}
+.section-header{display:flex;align-items:center;gap:0;margin-bottom:36px;opacity:0;animation:fadeUp 0.5s ease forwards;}
+.section-header-accent{width:4px;height:28px;border-radius:2px;margin-right:14px;flex-shrink:0;}
+.accent-inter{background:var(--inter);}.accent-tech{background:var(--tech);}.accent-warn{background:var(--warn);}.accent-mkt{background:var(--mkt);}
+.section-header-label{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.02em;margin-right:16px;white-space:nowrap;}
+.section-header-line{flex:1;height:1px;background:var(--border);}
+
+/* DATASET GRID */
+.dataset-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.data-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:12px;padding:16px 18px;opacity:0;animation:fadeUp 0.5s ease forwards;transition:border-color 0.2s,box-shadow 0.2s;backdrop-filter:blur(6px);}
+.data-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.data-card-label{font-size:9px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-4);margin-bottom:6px;}
+.data-card-val{font-size:20px;font-weight:800;line-height:1;margin-bottom:4px;}
+.data-card-sub{font-size:11px;font-weight:300;color:var(--text-3);line-height:1.5;}
+
+/* WORKFLOW */
+.workflow{display:flex;flex-direction:column;gap:0;}
+.phase-label{font-size:10px;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-4);padding:0 0 8px 16px;border-left:2px solid var(--border);margin:20px 0 8px 24px;}
+.node-row{display:flex;align-items:flex-start;gap:16px;}
+.connector-col{display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;padding-top:20px;}
+.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;border:1.5px solid;background:var(--bg);z-index:2;flex-shrink:0;}
+.step-num.inter{color:var(--inter);border-color:rgba(124,58,237,0.35);}
+.step-num.warn{color:var(--warn);border-color:rgba(180,83,9,0.35);}
+.step-num.pink{color:var(--pink);border-color:rgba(190,24,93,0.35);}
+.step-num.green{color:var(--green);border-color:rgba(22,101,52,0.35);}
+.connector-line{width:1px;flex:1;min-height:20px;background:linear-gradient(to bottom,var(--border) 60%,transparent);margin-top:4px;}
+.node{flex:1;background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:8px;position:relative;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;backdrop-filter:blur(6px);}
+.node:hover{transform:translateX(3px);border-color:var(--border2);}
+.node::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.node.inter::before{background:var(--inter);}.node.warn::before{background:var(--warn);}.node.pink::before{background:var(--pink);}.node.green::before{background:var(--green);}
+.node.done{background:rgba(22,101,52,0.05);border-color:rgba(22,101,52,0.25);}
+.node-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.node-title{font-size:14px;font-weight:700;line-height:1.3;color:var(--text);}
+.badge{font-size:9px;font-weight:500;padding:3px 9px;border-radius:4px;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0;border:1px solid;}
+.badge-inter{background:rgba(124,58,237,0.08);color:var(--inter);border-color:rgba(124,58,237,0.28);}
+.badge-warn{background:rgba(180,83,9,0.08);color:var(--warn);border-color:rgba(180,83,9,0.28);}
+.badge-pink{background:rgba(190,24,93,0.08);color:var(--pink);border-color:rgba(190,24,93,0.28);}
+.badge-game{background:rgba(180,83,9,0.1);color:var(--warn);border-color:rgba(180,83,9,0.35);font-weight:600;}
+.node-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;margin-bottom:10px;}
+.node-desc strong{color:var(--text);font-weight:500;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+.chip{font-size:9px;font-weight:400;padding:2px 8px;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,0.55);color:var(--text-3);}
+.chip.inter{color:var(--inter);border-color:rgba(124,58,237,0.28);background:rgba(124,58,237,0.06);}
+.chip.tech{color:var(--tech);border-color:rgba(0,119,182,0.28);background:rgba(0,119,182,0.06);}
+.chip.pink{color:var(--pink);border-color:rgba(190,24,93,0.28);background:rgba(190,24,93,0.06);}
+.chip.warn{color:var(--warn);border-color:rgba(180,83,9,0.28);background:rgba(180,83,9,0.06);}
+.chip.green{color:var(--green);border-color:rgba(22,101,52,0.28);background:rgba(22,101,52,0.06);}
+
+/* FINDINGS */
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.finding-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
+.finding-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.finding-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.finding-card.logistics::before{background:var(--tech);}.finding-card.retention::before{background:var(--inter);}.finding-card.revenue::before{background:var(--green);}.finding-card.recs::before{background:var(--warn);}
+.finding-label{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;}
+.finding-label.tech{color:var(--tech);}.finding-label.inter{color:var(--inter);}.finding-label.green{color:var(--green);}.finding-label.warn{color:var(--warn);}
+.finding-title{font-size:14px;font-weight:700;margin-bottom:8px;line-height:1.3;color:var(--text);}
+.finding-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.finding-desc strong{color:var(--text);font-weight:500;}
+.finding-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:baseline;gap:8px;}
+.finding-stat-num{font-size:24px;font-weight:800;}
+.finding-stat-num.tech{color:var(--tech);}.finding-stat-num.inter{color:var(--inter);}.finding-stat-num.green{color:var(--green);}
+.finding-stat-label{font-size:10px;font-weight:300;color:var(--text-3);}
+.finding-card:nth-child(1){animation-delay:0.1s;}.finding-card:nth-child(2){animation-delay:0.2s;}.finding-card:nth-child(3){animation-delay:0.3s;}.finding-card:nth-child(4){animation-delay:0.4s;}
+
+/* AHES TABLE */
+.ahes-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);}
+table{width:100%;border-collapse:collapse;}
+th{background:rgba(0,0,0,0.03);padding:12px 16px;font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);text-align:left;border-bottom:1px solid var(--border);}
+td{padding:12px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(124,58,237,0.03);}
+.atag{display:inline-block;font-size:8px;font-weight:500;padding:2px 7px;border-radius:3px;margin:2px;border:1px solid;letter-spacing:0.06em;}
+.atag.ai{color:var(--tech);border-color:rgba(0,119,182,0.3);background:rgba(0,119,182,0.07);}
+.atag.si{color:var(--inter);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.07);}
+.atag.el{color:var(--warn);border-color:rgba(180,83,9,0.3);background:rgba(180,83,9,0.07);}
+.atag.ce{color:var(--pink);border-color:rgba(190,24,93,0.3);background:rgba(190,24,93,0.07);}
+
+/* REFLECTION */
+.reflection-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.refl-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.2s,box-shadow 0.2s;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
+.refl-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.refl-icon{font-size:22px;margin-bottom:10px;}
+.refl-title{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.refl-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.refl-card:nth-child(1){animation-delay:0.1s;}.refl-card:nth-child(2){animation-delay:0.2s;}.refl-card:nth-child(3){animation-delay:0.3s;}.refl-card:nth-child(4){animation-delay:0.4s;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;position:relative;z-index:1;background:rgba(244,239,230,0.7);}
+.footer-left{font-size:11px;font-weight:400;color:var(--text-2);}
+.footer-left strong{font-weight:700;color:var(--text);}
+.footer-right{display:flex;gap:8px;flex-wrap:wrap;}
+.fpill{font-size:9px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-3);background:rgba(255,255,255,0.48);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.data-card:nth-child(1){animation-delay:0.1s;}.data-card:nth-child(2){animation-delay:0.18s;}.data-card:nth-child(3){animation-delay:0.26s;}
+.data-card:nth-child(4){animation-delay:0.34s;}.data-card:nth-child(5){animation-delay:0.42s;}.data-card:nth-child(6){animation-delay:0.50s;}
+.node-row:nth-child(1) .node{opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;}
+.node-row:nth-child(2) .node{opacity:0;animation:fadeUp 0.5s 0.18s ease forwards;}
+.node-row:nth-child(3) .node{opacity:0;animation:fadeUp 0.5s 0.26s ease forwards;}
+.node-row:nth-child(4) .node{opacity:0;animation:fadeUp 0.5s 0.34s ease forwards;}
+.node-row:nth-child(5) .node{opacity:0;animation:fadeUp 0.5s 0.42s ease forwards;}
+.node-row:nth-child(6) .node{opacity:0;animation:fadeUp 0.5s 0.50s ease forwards;}
+.node-row:nth-child(7) .node{opacity:0;animation:fadeUp 0.5s 0.58s ease forwards;}
+
+@media(max-width:900px){
+  nav{padding:0 24px;} .nav-links{display:none;} .nav-hamburger{display:flex;}
+  .page-hero{padding:100px 24px 56px;} .section{padding:0 24px 56px;}
+  .dataset-grid{grid-template-columns:1fr 1fr;} .findings-grid{grid-template-columns:1fr;}
+  .reflection-grid{grid-template-columns:1fr;} footer{padding:22px 24px;}
+}
+@media(max-width:560px){.stats-row{flex-wrap:wrap;}.stat-item{min-width:50%;}.dataset-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html">
+    <div class="nav-logo-dot"></div>
+    Khai Tran
+  </a>
+  <div class="nav-links">
+    <a href="../index.html#featured">Projects</a>
+    <a href="../index.html#automation">AI & Automation</a>
+    <a href="../index.html#analytics">Analytics & BI</a>
+  </div>
+  <a class="nav-back" href="../index.html">Portfolio</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="blob-wrap">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI Research · Prompt Engineering · Competition 2025</div>
+    <h1 class="hero-title">Prompt <span>Alchemy</span></h1>
+
+    <div class="winner-badge">
+      <div class="winner-icon">🥇</div>
+      <div>
+        <div class="winner-title">1st Place — Prompt Alchemy Competition 2025</div>
+        <div class="winner-sub">Information Systems & Business Analytics Club · Suffolk University · Co-authored with Rosie Dinh</div>
+      </div>
+    </div>
+
+    <p class="hero-desc">
+      A structured, multi-stage prompt engineering framework applied to a 119,141-record Brazilian eCommerce dataset.
+      Extracted production-grade BI across logistics, retention, and revenue —
+      with <strong>human validation at every step</strong> and an ethics-first approach most analysts skip entirely.
+    </p>
+
+    <div class="meta-row">
+      <span class="mpill int">Prompt Engineering</span>
+      <span class="mpill mkt">Data Analysis</span>
+      <span class="mpill tech">Business Intelligence</span>
+      <span class="mpill warn">AHES Framework</span>
+      <span class="mpill">ChatGPT</span>
+      <span class="mpill">Python</span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-val inter">119k</div><div class="stat-lbl">Records Analyzed</div></div>
+      <div class="stat-item"><div class="stat-val">22</div><div class="stat-lbl">Columns Merged</div></div>
+      <div class="stat-item"><div class="stat-val tech">97.8%</div><div class="stat-lbl">On-Time Delivery</div></div>
+      <div class="stat-item"><div class="stat-val warn">3</div><div class="stat-lbl">Game-Changer Nodes</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DATASET -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-header-accent accent-tech"></div>
+    <div class="section-header-label">Dataset Overview</div>
+    <div class="section-header-line"></div>
+  </div>
+  <div class="dataset-grid">
+    <div class="data-card">
+      <div class="data-card-label">Source</div>
+      <div class="data-card-val" style="font-size:15px;color:var(--inter);">Olist eCommerce</div>
+      <div class="data-card-sub">Brazilian marketplace — multiple CSV files merged into one unified analysis-ready table</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-label">Scale</div>
+      <div class="data-card-val" style="color:var(--tech);">119,141</div>
+      <div class="data-card-sub">Records · 22 columns across orders, items, products, sellers, reviews, customers</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-label">Average Order Value</div>
+      <div class="data-card-val" style="color:var(--positive);">R$213</div>
+      <div class="data-card-sub">Median LTV also R$213 · 4.08/5 avg rating · 27.15% conversion rate</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-label">Delivery Performance</div>
+      <div class="data-card-val" style="color:var(--positive);">97.8%</div>
+      <div class="data-card-sub">On-time delivery · ~10.3 day average · 11 days early on average</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-label">Top Revenue State</div>
+      <div class="data-card-val" style="color:var(--green);">R$7.65M</div>
+      <div class="data-card-sub">São Paulo leads · RJ R$2.78M · MG R$2.34M · RS R$1.16M</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-label">Negative Reviews</div>
+      <div class="data-card-val" style="color:var(--mkt);">23%</div>
+      <div class="data-card-sub">Strongly correlated with delivery delays — inverse relationship confirmed across all states</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMPTING FRAMEWORK -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-header-accent accent-inter"></div>
+    <div class="section-header-label">Prompting Process — 5-Stage Framework</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="workflow">
+
+    <div class="phase-label">Phase 1 — Foundation</div>
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num inter">1.0</div><div class="connector-line"></div></div>
+      <div class="node inter">
+        <div class="node-header"><div class="node-title">Feed Learning Materials + Frame Data & Context</div><span class="badge badge-inter">FOUNDATION</span></div>
+        <div class="node-desc">Before any prompt is written, the project brief, dataset structure, and domain context are fed into the system. This creates a shared knowledge base every downstream prompt can reference — preventing hallucination and grounding outputs in actual data.</div>
+        <div class="chips">
+          <span class="chip inter">Project brief + learning materials</span>
+          <span class="chip inter">Dataset: 119,141 records · 22 columns</span>
+          <span class="chip inter">Reference knowledge repository</span>
+          <span class="chip inter">Prompt instruction repository</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-label">Phase 2 — Prompt Optimization 🎯 Game Changer</div>
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num inter">2.0</div><div class="connector-line"></div></div>
+      <div class="node inter">
+        <div class="node-header"><div class="node-title">Explore Generic Questions → Optimize via Prompt Optimizer</div><span class="badge badge-game">🎯 GAME CHANGER</span></div>
+        <div class="node-desc">Generic questions are drafted first — where most analysts stop. A <strong>Prompt Optimizer</strong> layer then refines them by applying four techniques simultaneously, producing prompts that are precise, reusable, and consistently high-quality.</div>
+        <div class="chips">
+          <span class="chip inter">Instruction Prompting — define role, scope, format</span>
+          <span class="chip inter">Role Prompting — persona-based context framing</span>
+          <span class="chip inter">Format Control — structured output specification</span>
+          <span class="chip inter">Modular Planning — break complex asks into steps</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num warn">3.1</div><div class="connector-line"></div></div>
+      <div class="node warn">
+        <div class="node-header"><div class="node-title">Refine via Human</div><span class="badge badge-warn">⏸ HUMAN GATE</span></div>
+        <div class="node-desc">Optimized prompts reviewed by a human analyst before execution — ensures business alignment, removes bias, and catches any prompt that might produce misleading outputs on the real dataset.</div>
+      </div>
+    </div>
+
+    <div class="phase-label">Phase 3 — Quality & Ethics Check 🎯 Game Changer</div>
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num pink">4.0</div><div class="connector-line"></div></div>
+      <div class="node pink">
+        <div class="node-header"><div class="node-title">Check AHES + Reference + Token Fit → Reward Loop</div><span class="badge badge-game">🎯 GAME CHANGER</span></div>
+        <div class="node-desc">Every prompt validated against the <strong>AHES framework</strong> before execution. Token budget checked for context coherence. Good outputs reinforced via reward signaling to steer future generation quality.</div>
+        <div class="chips">
+          <span class="chip tech">AI Literacy — accurate model understanding</span>
+          <span class="chip inter">Social Intelligence — audience-aware outputs</span>
+          <span class="chip warn">Ethical Leadership — bias + fairness checks</span>
+          <span class="chip pink">Cognitive Elevation — critical thinking in outputs</span>
+          <span class="chip">Token fit validation</span>
+          <span class="chip green">Reward Chat for Good Output</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-label">Phase 4 — Specialized Execution 🎯 Game Changer</div>
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num pink">EX</div><div class="connector-line"></div></div>
+      <div class="node pink">
+        <div class="node-header"><div class="node-title">Specialized Chat Execution → 3 Analysis Tracks</div><span class="badge badge-game">🎯 GAME CHANGER</span></div>
+        <div class="node-desc">Rather than routing all analysis through one generalist prompt, the structured prompt is sent to <strong>specialized chat instances</strong> — each focused on one domain. Each track runs independently, maximizing analytical depth per area.</div>
+        <div class="chips">
+          <span class="chip tech">📦 Track 1: Logistics & Operations</span>
+          <span class="chip inter">🔁 Track 2: Customer Retention</span>
+          <span class="chip green">💰 Track 3: Revenue by State</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-label">Phase 5 — Validation & Feedback Loop</div>
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num warn">5.0</div><div class="connector-line"></div></div>
+      <div class="node warn">
+        <div class="node-header"><div class="node-title">Validate Output via Human → Output Repository → Feedback Loop</div><span class="badge badge-warn">⏸ HUMAN GATE</span></div>
+        <div class="node-desc">Outputs validated by a human analyst before storing. Useful outputs enter the repository. Corrections and feedback are fed back into Stage 1 as new learning materials — <strong>closing the loop</strong> and improving every future prompt.</div>
+        <div class="chips">
+          <span class="chip green">Reviewed cases → Output repository</span>
+          <span class="chip warn">Corrections / Feedback → loops back to Stage 1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="node-row">
+      <div class="connector-col"><div class="step-num green">✓</div></div>
+      <div class="node green" style="background:rgba(22,101,52,0.05);border-color:rgba(22,101,52,0.25);">
+        <div class="node-header"><div class="node-title" style="color:var(--green);">✅ Validated Business Intelligence — 1st Place</div></div>
+        <div class="node-desc">Production-grade insights across three business domains, generated through a repeatable, human-validated, ethics-checked prompting system. Awarded 1st place by competition judges.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FINDINGS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-header-accent accent-mkt"></div>
+    <div class="section-header-label">Key Findings</div>
+    <div class="section-header-line"></div>
+  </div>
+  <div class="findings-grid">
+    <div class="finding-card logistics">
+      <div class="finding-label tech">📦 Logistics & Operations</div>
+      <div class="finding-title">Delay Hurts — But Early Delivery Isn't a Shield</div>
+      <div class="finding-desc">Strong inverse relationship between delivery delay and review score. However, <strong>early delivery alone doesn't guarantee satisfaction</strong> — product and experience quality matter more. Mid-performing states (RS, PA) show best practices worth replicating.</div>
+      <div class="finding-stat"><div class="finding-stat-num tech">97.8%</div><div class="finding-stat-label">on-time rate — yet 23% negative reviews remain</div></div>
+    </div>
+    <div class="finding-card retention">
+      <div class="finding-label inter">🔁 Customer Retention</div>
+      <div class="finding-title">High Retention ≠ High Revenue — The Category Gap</div>
+      <div class="finding-desc">Diapers & Hygiene leads repeat purchase rate but has a small basket. <strong>Signaling & Security and Office Furniture</strong> show both high retention and AOV above R$492 — prime upsell and cross-sell targets.</div>
+      <div class="finding-stat"><div class="finding-stat-num inter">R$515</div><div class="finding-stat-label">avg order value, office furniture — top retention + revenue</div></div>
+    </div>
+    <div class="finding-card revenue">
+      <div class="finding-label green">💰 Revenue by State</div>
+      <div class="finding-title">São Paulo Dominates — Regional Gaps Signal Growth</div>
+      <div class="finding-desc">SP generates R$7.65M — nearly <strong>3× the next state</strong> (RJ at R$2.78M). MG and RS underperform relative to population. Targeted regional campaigns + improved last-mile logistics = clearest growth lever.</div>
+      <div class="finding-stat"><div class="finding-stat-num green">R$7.65M</div><div class="finding-stat-label">São Paulo — top state by significant margin</div></div>
+    </div>
+    <div class="finding-card recs">
+      <div class="finding-label warn">📋 Recommendations</div>
+      <div class="finding-title">Three Actionable Levers</div>
+      <div class="finding-desc">
+        <strong>1. Reliability over speed</strong> — prioritise accuracy, not just days. Use predictive analytics to flag at-risk orders early; offer proactive refund/voucher options.<br><br>
+        <strong>2. Retention monetisation</strong> — subscription models or bundles in high-retention categories. Upsell Signaling & Security with post-purchase engagement.<br><br>
+        <strong>3. Regional expansion</strong> — multi-carrier strategy in high-delay zones; dedicated campaigns in MG, RS, and PR.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AHES -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-header-accent accent-warn"></div>
+    <div class="section-header-label">AHES Framework — Ethics in Prompting</div>
+    <div class="section-header-line"></div>
+  </div>
+  <div class="ahes-wrap">
+    <table>
+      <thead>
+        <tr><th>AHES Element</th><th>Applied Learning</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="atag ai">AI Literacy</span><span class="atag si">Social Intelligence</span><span class="atag el">Ethical Leadership</span></td>
+          <td>Define role, scope, and behavior expectations in every system prompt</td>
+          <td>Sets clear context, prevents hallucination, controls AI behavior from the start</td>
+        </tr>
+        <tr>
+          <td><span class="atag ai">AI Literacy</span><span class="atag si">Social Intelligence</span></td>
+          <td>Structure &gt; Context — always frame the dataset before asking for analysis</td>
+          <td>Enables easier parsing, reuse across prompts, and downstream automation</td>
+        </tr>
+        <tr>
+          <td><span class="atag ce">Cognitive Elevation</span><span class="atag el">Ethical Leadership</span></td>
+          <td>Feedback loop, error handling, and self-evaluation baked into each chain</td>
+          <td>Outputs degrade without iterative refinement — this prevents regression</td>
+        </tr>
+        <tr>
+          <td><span class="atag ce">Cognitive Elevation</span></td>
+          <td>Account for environment limits: token count, state management across turns</td>
+          <td>Ensures coherence across long conversations and large dataset inputs</td>
+        </tr>
+        <tr>
+          <td><span class="atag ce">Cognitive Elevation</span><span class="atag el">Ethical Leadership</span></td>
+          <td>Constraints and fairness dimensions built into every analytical prompt</td>
+          <td>Controls for biased or unethical recommendations in consumer-facing insights</td>
+        </tr>
+        <tr>
+          <td><span class="atag ai">AI Literacy</span></td>
+          <td>Proper file handling and data formatting before feeding into the model</td>
+          <td>Format consistency prevents downstream parsing errors and hallucinated data</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- REFLECTION -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-header-accent accent-inter"></div>
+    <div class="section-header-label">Reflection & Learnings</div>
+    <div class="section-header-line"></div>
+  </div>
+  <div class="reflection-grid">
+    <div class="refl-card">
+      <div class="refl-icon">🔁</div>
+      <div class="refl-title">Prompting is a system, not a shot</div>
+      <div class="refl-desc">The biggest insight was treating every AI interaction as part of a repeatable system — defined inputs, structured outputs, human validation, and feedback loops. One-shot prompting is a starting point, not a methodology.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">🧠</div>
+      <div class="refl-title">Structure beats creativity in analytical prompting</div>
+      <div class="refl-desc">Instruction prompting, role framing, and format control consistently outperformed open-ended prompts for data analysis. The model performs best when given a clear job description, not a vague request.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">👤</div>
+      <div class="refl-title">Human gates are the quality multiplier</div>
+      <div class="refl-desc">The review steps at 3.1 and 5.0 were not bureaucratic checkpoints — they were the highest-leverage moments. Every correction fed back as training material improved every subsequent prompt in the chain.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">⚖️</div>
+      <div class="refl-title">Ethics isn't a constraint — it's a design principle</div>
+      <div class="refl-desc">Applying AHES to each prompt forced a higher standard of output. Prompts that passed ethical review consistently produced more nuanced, defensible, and actionable insights than those that skipped it.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left"><strong>Khai Tran</strong> · Northeastern University · Business Analytics + Data Science · 2025</div>
+  <div class="footer-right">
+    <span class="fpill">Prompt Engineering</span>
+    <span class="fpill">ChatGPT</span>
+    <span class="fpill">Data Analysis</span>
+    <span class="fpill">AHES Framework</span>
+    <span class="fpill">1st Place 🥇</span>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+hamburger && hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+});
+</script>
 </body>
 </html>
