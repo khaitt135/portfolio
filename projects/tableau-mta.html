@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTA NYC Transit Dashboard — Khai Tran</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe6;--surface:#eae3d8;--surface2:#e2dbd0;--border:#d0c9bc;--border2:#bdb5a8;--text:#1d1d1f;--text-2:#3a3a3c;--text-3:#6e6e73;--text-4:#aeaeb2;--mkt:#e85d04;--tech:#0077b6;--inter:#7c3aed;--positive:#2ce247;--warn:#b45309;--green:#166534;--pink:#be185d;--blue:#1d4ed8;--tableau:#1f77b4;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Google Sans Code',monospace;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");background-size:180px 180px;opacity:0.028;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:rgba(244,239,230,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 48px;justify-content:space-between;}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-dot{width:9px;height:9px;border-radius:50%;background:var(--inter);box-shadow:0 0 10px rgba(124,58,237,0.45);animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.72);}}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.18s;}
+.nav-links a:hover{color:var(--text);}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--inter);border:1.5px solid rgba(124,58,237,0.35);background:rgba(124,58,237,0.05);padding:7px 18px;border-radius:24px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background 0.18s;}
+.nav-back:hover{background:rgba(124,58,237,0.11);}
+.nav-back::before{content:'\2190';}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);flex-direction:column;gap:5px;align-items:flex-end;}
+.nav-hamburger span{display:block;height:1.5px;background:var(--text);border-radius:2px;}
+.nav-hamburger span:nth-child(1){width:22px;}.nav-hamburger span:nth-child(2){width:15px;}.nav-hamburger span:nth-child(3){width:22px;}
+
+/* HERO */
+.page-hero{padding:100px 48px 72px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.blob-wrap{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(72px);mix-blend-mode:multiply;animation:blobFloat 8s ease-in-out infinite;}
+.blob-1{width:480px;height:480px;background:radial-gradient(circle,rgba(31,119,180,0.2) 0%,rgba(31,119,180,0) 70%);top:-80px;left:-60px;}
+.blob-2{width:360px;height:360px;background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,rgba(124,58,237,0) 70%);top:5%;right:5%;animation-delay:2s;}
+.blob-3{width:300px;height:300px;background:radial-gradient(circle,rgba(0,119,182,0.12) 0%,rgba(0,119,182,0) 70%);bottom:0;left:40%;animation-delay:4s;}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.97);}}
+.hero-inner{position:relative;z-index:2;}
+
+.context-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(31,119,180,0.08);border:1.5px solid rgba(31,119,180,0.25);border-radius:6px;padding:6px 14px;margin-bottom:20px;opacity:0;animation:fadeUp 0.5s 0.06s ease forwards;}
+.context-pill span{font-size:11px;font-weight:600;color:var(--tableau);letter-spacing:0.04em;}
+.tab-dot{width:7px;height:7px;border-radius:50%;background:var(--tableau);}
+
+.hero-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.6s 0.12s ease forwards;}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--text-3);border-radius:2px;}
+.hero-title{font-size:clamp(32px,4.5vw,60px);font-weight:800;line-height:1.06;letter-spacing:-0.04em;margin-bottom:10px;opacity:0;animation:fadeUp 0.6s 0.18s ease forwards;}
+.hero-title .accent{color:var(--tableau);}
+.hero-subtitle{font-size:clamp(13px,1.7vw,18px);font-weight:300;color:var(--text-3);margin-bottom:24px;opacity:0;animation:fadeUp 0.6s 0.22s ease forwards;}
+
+.tableau-cta{display:inline-flex;align-items:center;gap:12px;background:rgba(31,119,180,0.08);border:1.5px solid rgba(31,119,180,0.3);border-radius:12px;padding:14px 22px;margin-bottom:28px;text-decoration:none;opacity:0;animation:fadeUp 0.6s 0.28s ease forwards;transition:background 0.18s,border-color 0.18s;}
+.tableau-cta:hover{background:rgba(31,119,180,0.14);border-color:var(--tableau);}
+.tableau-cta-icon{font-size:24px;}
+.tableau-cta-title{font-size:13px;font-weight:700;color:var(--tableau);margin-bottom:2px;}
+.tableau-cta-sub{font-size:10px;font-weight:300;color:var(--text-3);}
+
+.hero-desc{font-size:15px;font-weight:300;color:var(--text-2);line-height:1.78;max-width:700px;margin-bottom:32px;opacity:0;animation:fadeUp 0.6s 0.32s ease forwards;}
+.hero-desc strong{color:var(--text);font-weight:500;}
+
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;opacity:0;animation:fadeUp 0.6s 0.38s ease forwards;}
+.mpill{font-size:10px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,0.55);color:var(--text-3);}
+.mpill.tab{color:var(--tableau);border-color:rgba(31,119,180,0.3);background:rgba(31,119,180,0.06);}
+.mpill.inter{color:var(--inter);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06);}
+.mpill.tech{color:var(--tech);border-color:rgba(0,119,182,0.3);background:rgba(0,119,182,0.06);}
+.mpill.green{color:var(--green);border-color:rgba(22,101,52,0.3);background:rgba(22,101,52,0.06);}
+
+.stats-row{display:flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.42);backdrop-filter:blur(8px);opacity:0;animation:fadeUp 0.6s 0.44s ease forwards;max-width:780px;}
+.stat-item{flex:1;padding:16px 20px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-size:19px;font-weight:800;line-height:1;margin-bottom:5px;color:var(--positive);}
+.stat-val.tab{color:var(--tableau);}.stat-val.tech{color:var(--tech);}.stat-val.warn{color:var(--warn);}.stat-val.green{color:var(--green);}
+.stat-lbl{font-size:8.5px;font-weight:400;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;}
+
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto;padding:0 48px 72px;position:relative;z-index:1;}
+.section-header{display:flex;align-items:center;gap:0;margin-bottom:32px;opacity:0;animation:fadeUp 0.5s ease forwards;}
+.sha{width:4px;height:28px;border-radius:2px;margin-right:14px;flex-shrink:0;}
+.sha-tab{background:var(--tableau);}.sha-tech{background:var(--tech);}.sha-inter{background:var(--inter);}.sha-green{background:var(--green);}.sha-warn{background:var(--warn);}
+.section-header-label{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.02em;margin-right:16px;white-space:nowrap;}
+.section-header-sub{font-size:10px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-right:16px;white-space:nowrap;}
+.section-header-line{flex:1;height:1px;background:var(--border);}
+
+/* DASHBOARD SCREENSHOT */
+.dashboard-preview{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.1);margin-bottom:16px;opacity:0;animation:fadeUp 0.6s 0.1s ease forwards;position:relative;}
+.dashboard-preview img{width:100%;display:block;}
+.dashboard-caption{font-size:10px;font-weight:300;color:var(--text-3);text-align:center;margin-bottom:32px;opacity:0;animation:fadeUp 0.5s 0.25s ease forwards;}
+
+/* GRIDS */
+.two-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.four-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+
+/* CARDS */
+.card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:12px;padding:18px 20px;opacity:0;animation:fadeUp 0.5s ease forwards;transition:border-color 0.2s,box-shadow 0.2s;backdrop-filter:blur(6px);}
+.card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.card-label{font-size:9px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-4);margin-bottom:8px;}
+.card-val{font-size:18px;font-weight:800;line-height:1;margin-bottom:5px;}
+.card-sub{font-size:11px;font-weight:300;color:var(--text-3);line-height:1.55;}
+.card:nth-child(1){animation-delay:0.1s;}.card:nth-child(2){animation-delay:0.18s;}.card:nth-child(3){animation-delay:0.26s;}.card:nth-child(4){animation-delay:0.34s;}.card:nth-child(5){animation-delay:0.42s;}.card:nth-child(6){animation-delay:0.5s;}
+
+/* DATA SOURCES TABLE */
+.ds-table-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);}
+table{width:100%;border-collapse:collapse;}
+th{background:rgba(31,119,180,0.06);padding:11px 16px;font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--tableau);text-align:left;border-bottom:1px solid var(--border);}
+td{padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.55;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(31,119,180,0.02);}
+td strong{color:var(--text);font-weight:500;}
+.row-tag{display:inline-block;font-size:9px;font-weight:500;padding:2px 8px;border-radius:3px;border:1px solid rgba(31,119,180,0.3);background:rgba(31,119,180,0.07);color:var(--tableau);}
+
+/* CHART TYPE GRID */
+.chart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.chart-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:12px;padding:18px 20px;opacity:0;animation:fadeUp 0.5s ease forwards;transition:border-color 0.2s;backdrop-filter:blur(6px);position:relative;overflow:hidden;}
+.chart-card:hover{border-color:var(--border2);}
+.chart-card::before{content:'';display:block;width:24px;height:2px;border-radius:1px;margin-bottom:12px;}
+.cc-tab::before{background:var(--tableau);}.cc-inter::before{background:var(--inter);}.cc-tech::before{background:var(--tech);}.cc-green::before{background:var(--green);}.cc-warn::before{background:var(--warn);}.cc-mkt::before{background:var(--mkt);}
+.chart-icon{font-size:22px;margin-bottom:8px;}
+.chart-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.chart-desc{font-size:11px;font-weight:300;color:var(--text-3);line-height:1.6;}
+.chart-decision{font-size:10px;font-weight:400;color:var(--text-4);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+.chart-card:nth-child(1){animation-delay:0.08s;}.chart-card:nth-child(2){animation-delay:0.16s;}.chart-card:nth-child(3){animation-delay:0.24s;}.chart-card:nth-child(4){animation-delay:0.32s;}.chart-card:nth-child(5){animation-delay:0.40s;}.chart-card:nth-child(6){animation-delay:0.48s;}
+
+/* DESIGN DECISIONS TABLE */
+.design-table-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);}
+.design-table-wrap th{color:var(--inter);}
+
+/* REQUIREMENTS TABLE */
+.req-table-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);}
+.req-table-wrap th{color:var(--green);}
+.req-met{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--green);}
+.req-met::before{content:'&#10003;';font-size:11px;}
+
+/* CALC FIELDS */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.calc-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:11px;backdrop-filter:blur(6px);opacity:0;animation:fadeUp 0.5s ease forwards;}
+.calc-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.calc-fx{font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px;background:rgba(31,119,180,0.09);border:1px solid rgba(31,119,180,0.25);color:var(--tableau);letter-spacing:0.04em;}
+.calc-desc{font-size:11px;font-weight:300;color:var(--text-3);line-height:1.55;}
+.calc-card:nth-child(1){animation-delay:0.08s;}.calc-card:nth-child(2){animation-delay:0.16s;}.calc-card:nth-child(3){animation-delay:0.24s;}.calc-card:nth-child(4){animation-delay:0.32s;}.calc-card:nth-child(5){animation-delay:0.40s;}.calc-card:nth-child(6){animation-delay:0.48s;}.calc-card:nth-child(7){animation-delay:0.56s;}
+
+/* REFLECTIONS */
+.refl-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.2s,box-shadow 0.2s;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
+.refl-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.refl-icon{font-size:22px;margin-bottom:10px;}
+.refl-title{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.refl-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.refl-card:nth-child(1){animation-delay:0.1s;}.refl-card:nth-child(2){animation-delay:0.2s;}.refl-card:nth-child(3){animation-delay:0.3s;}
+
+/* TABLEAU PUBLIC CTA */
+.public-cta{background:rgba(31,119,180,0.07);border:1.5px solid rgba(31,119,180,0.25);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;}
+.public-cta-left h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.public-cta-left p{font-size:12px;font-weight:300;color:var(--text-2);max-width:560px;line-height:1.65;}
+.public-cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--tableau);color:#fff;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:11px 22px;border-radius:8px;text-decoration:none;transition:opacity 0.18s,transform 0.18s;white-space:nowrap;flex-shrink:0;}
+.public-cta-btn:hover{opacity:0.87;transform:translateY(-1px);}
+
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;position:relative;z-index:1;background:rgba(244,239,230,0.7);}
+.footer-left{font-size:11px;font-weight:400;color:var(--text-2);}
+.footer-left strong{font-weight:700;color:var(--text);}
+.footer-right{display:flex;gap:8px;flex-wrap:wrap;}
+.fpill{font-size:9px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-3);background:rgba(255,255,255,0.48);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){nav{padding:0 24px;}.nav-links{display:none;}.nav-hamburger{display:flex;}.page-hero,.section{padding-left:24px;padding-right:24px;}.page-hero{padding-top:100px;padding-bottom:56px;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid{grid-template-columns:1fr 1fr;}footer{padding:22px 24px;}}
+@media(max-width:560px){.stats-row{flex-wrap:wrap;}.stat-item{min-width:50%;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid{grid-template-columns:1fr;}.public-cta{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html"><div class="nav-logo-dot"></div>Khai Tran</a>
+  <div class="nav-links">
+    <a href="../index.html#featured">Projects</a>
+    <a href="../index.html#automation">AI &amp; Automation</a>
+    <a href="../index.html#analytics">Analytics &amp; BI</a>
+  </div>
+  <a class="nav-back" href="../index.html">Portfolio</a>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="blob-wrap"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+  <div class="hero-inner">
+
+    <div class="context-pill"><div class="tab-dot"></div><span>Tableau &middot; Data Visualization &middot; BI Dashboard &middot; Northeastern 2026</span></div>
+
+    <div class="hero-eyebrow">Operational BI &middot; Live Data Connections &middot; 126K+ Rows</div>
+    <h1 class="hero-title">MTA <span class="accent">NYC Transit</span><br>Daily Operations Dashboard</h1>
+    <div class="hero-subtitle">Tableau dashboard for transit operations monitoring &mdash; built on 3 live Google Sheets datasources connected to MTA open data</div>
+
+    <a class="tableau-cta" href="https://public.tableau.com/app/profile/khai.tran3117/vizzes" target="_blank" rel="noopener">
+      <div class="tableau-cta-icon">&#128202;</div>
+      <div>
+        <div class="tableau-cta-title">View on Tableau Public &rarr;</div>
+        <div class="tableau-cta-sub">Live profile &middot; Updated as new projects are added &middot; public.tableau.com/app/profile/khai.tran</div>
+      </div>
+    </a>
+
+    <p class="hero-desc">An operational monitoring dashboard designed for an <strong>MTA line coordinator audience</strong> &mdash; balancing station-level granularity (126K+ rows, 6-hour borough breakdowns) with strategic summary (KPI domain rollups, 7-day ridership trend). Every design decision traces back to a principle: Tufte, Few, or direct assignment constraint.</p>
+
+    <div class="meta-row">
+      <span class="mpill tab">Tableau Desktop</span>
+      <span class="mpill tab">Google Sheets Live Connection</span>
+      <span class="mpill tech">Calculated Fields</span>
+      <span class="mpill inter">Small Multiples</span>
+      <span class="mpill inter">Density Heatmap</span>
+      <span class="mpill green">MTA Open Data</span>
+      <span class="mpill">3 Datasources &middot; 8 Requirements</span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-val" style="color:var(--positive);">126K+</div><div class="stat-lbl">Rows (Subway data)</div></div>
+      <div class="stat-item"><div class="stat-val tab">3</div><div class="stat-lbl">Live Datasources</div></div>
+      <!--<div class="stat-item"><div class="stat-val tech">8/8</div><div class="stat-lbl">Requirements Met</div></div> -->
+      <div class="stat-item"><div class="stat-val green">7</div><div class="stat-lbl">Calculated Fields Built</div></div>
+      <div class="stat-item"><div class="stat-val warn">A+</div><div class="stat-lbl">Grade &middot; 88%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SCREENSHOT -->
+<div class="section" style="padding-bottom:48px;">
+  <div class="section-header"><div class="sha sha-tab"></div><div class="section-header-label">Dashboard Preview</div><div class="section-header-sub">MTA NYC Transit &middot; Daily Operation Overview</div><div class="section-header-line"></div></div>
+  <div class="dashboard-preview">
+    <img src="../assets/mta-dashboard.png" alt="MTA NYC Transit Daily Operation Overview Tableau Dashboard" onerror="this.parentElement.style.display='none';document.getElementById('dashboard-placeholder').style.display='flex';">
+  </div>
+  <div id="dashboard-placeholder" style="display:none;background:rgba(31,119,180,0.06);border:1.5px dashed rgba(31,119,180,0.3);border-radius:16px;padding:48px 32px;text-align:center;margin-bottom:16px;flex-direction:column;align-items:center;gap:12px;">
+    <div style="font-size:32px;">&#128202;</div>
+    <div style="font-size:14px;font-weight:700;color:var(--tableau);">Dashboard Screenshot</div>
+    <div style="font-size:12px;font-weight:300;color:var(--text-3);max-width:400px;line-height:1.65;">Place <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;font-size:11px;">assets/mta-dashboard.png</code> in your project folder, or view live on Tableau Public below.</div>
+    <a href="https://public.tableau.com/app/profile/khai.tran3117/vizzes3117/vizzes" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--tableau);color:#fff;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:10px 20px;border-radius:8px;text-decoration:none;margin-top:8px;">View on Tableau Public &rarr;</a>
+  </div>
+  <div class="dashboard-caption">MTA NYC Transit &middot; Daily Operation Overview &middot; Filter by Borough &middot; Built in Tableau &middot; Northeastern MISM 3501</div>
+</div>
+
+<!-- DATA SOURCES -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-tab"></div><div class="section-header-label">Data Sources</div><div class="section-header-sub">3 live Google Sheets &middot; connected to MTA open data</div><div class="section-header-line"></div></div>
+
+  <div class="ds-table-wrap">
+    <table>
+      <thead><tr><th>Source</th><th>Rows</th><th>Key Fields</th><th>Used For</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Daily Ridership 2020&ndash;2025</strong><br><span style="font-size:10px;color:var(--text-4);">MTA Open Data &rarr; Google Sheets &rarr; Tableau</span></td>
+          <td><span class="row-tag">1,765 rows</span></td>
+          <td>15 columns &middot; 6 transit modes &middot; date, daily ridership by mode</td>
+          <td>BAN cards (total riders, B&amp;T, SIR, transfers), 7-day sparkline</td>
+        </tr>
+        <tr>
+          <td><strong>Hourly Subway Ridership (6hr aggregated)</strong><br><span style="font-size:10px;color:var(--text-4);">Granular station-level data &rarr; Google Sheets &rarr; Tableau</span></td>
+          <td><span class="row-tag" style="color:var(--green);border-color:rgba(22,101,52,0.3);background:rgba(22,101,52,0.08);">126,793 rows</span></td>
+          <td>Station, borough, fare class, ridership, transfers, lat/long</td>
+          <td>Borough small multiples, OMNY adoption bar, density heatmap, map tooltip</td>
+        </tr>
+        <tr>
+          <td><strong>MTA KPIs 2008&ndash;2021</strong><br><span style="font-size:10px;color:var(--text-4);">Historical KPI tracking &rarr; Google Sheets &rarr; Tableau</span></td>
+          <td><span class="row-tag">15,991 rows</span></td>
+          <td>17 columns &middot; agency, indicator, target, actual, period</td>
+          <td>KPI overview table (Safety, Service Reliability, Infrastructure) with tooltip drill-down</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CALCULATED FIELDS -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-tech"></div><div class="section-header-label">Calculated Fields</div><div class="section-header-sub">7 custom fields built from raw data</div><div class="section-header-line"></div></div>
+
+  <div class="calc-grid">
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">SUM</span>Total Daily Riders</div>
+      <div class="calc-desc">Aggregates across all 6 transit mode columns (Subway, Bus, LIRR, Metro-North, Access-A-Ride, Bridges &amp; Tunnels) from the Daily Ridership source into a single daily figure.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">LOD</span>vs Last Week %</div>
+      <div class="calc-desc">Period-over-period delta comparing today&rsquo;s total ridership against the same day 7 days prior. Drives the &#9650;&#9660; arrow indicators on BAN cards.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">FIXED</span>vs Target %</div>
+      <div class="calc-desc">Compares actual daily values against hardcoded targets: 4M total riders, 850K Bridges &amp; Tunnels, 4K Staten Island Railway, 4K avg transfers per 6 hrs.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">DIV</span>OMNY Adoption Rate</div>
+      <div class="calc-desc">OMNY ridership &divide; total ridership &mdash; feeds the bullet bar chart against the 50% adoption target reference line.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">SUM</span>KPI % of MTD Target</div>
+      <div class="calc-desc">YTD Actual &divide; YTD Target, aggregated at domain level (Safety, Service Reliability, Infrastructure) for the KPI overview text table.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">DIV</span>Transfer Rate per Station</div>
+      <div class="calc-desc">Transfers &divide; Ridership at station granularity. Surfaces in the map tooltip alongside raw ridership, transfers, and OMNY usage per station.</div>
+    </div>
+    <div class="calc-card">
+      <div class="calc-name"><span class="calc-fx">BOOL</span>7-Day Filter Boolean</div>
+      <div class="calc-desc">Flags records within the last 7 days to constrain the sparkline to the correct window while keeping the full dataset available for other views.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHART TYPES -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Chart Types &amp; Design Decisions</div><div class="section-header-sub">6 chart types &middot; each selected against a principle</div><div class="section-header-line"></div></div>
+
+  <div class="chart-grid">
+    <div class="chart-card cc-tab">
+      <div class="chart-icon">&#128287;</div>
+      <div class="chart-name">BAN Cards with Delta Indicators</div>
+      <div class="chart-desc">4 big number cards for Total Riders, B&amp;T Riders, SIR Riders, and Avg Transfers. Each shows both % vs last week and % vs monthly target.</div>
+      <div class="chart-decision">&#9650;&#9660; arrows + green/orange color encoding &mdash; preattentive attributes from class content. Immediate attention to off-target metrics.</div>
+    </div>
+    <div class="chart-card cc-inter">
+      <div class="chart-icon">&#128200;</div>
+      <div class="chart-name">Small Multiples — 5 Borough Panels</div>
+      <div class="chart-desc">5 independent line charts (Bronx, Brooklyn, Manhattan, Queens, Staten Island), each with their own y-axis and a shared 120K/6-hour reference line.</div>
+      <div class="chart-decision">Independent axes prevent scale distortion across boroughs &mdash; Tufte principle. Enables like-for-like comparison without flattening low-volume boroughs.</div>
+    </div>
+    <div class="chart-card cc-tab">
+      <div class="chart-icon">&#128200;</div>
+      <div class="chart-name">Sparkline with Fixed Axis</div>
+      <div class="chart-desc">7-day ridership trend line with a fixed y-axis range of 3M&ndash;5M and a 4M daily target reference line.</div>
+      <div class="chart-decision">Fixed axis shows meaningful variation instead of zero-based flatness &mdash; Tufte. Zero-based would compress the signal into noise.</div>
+    </div>
+    <div class="chart-card cc-green">
+      <div class="chart-icon">&#127758;</div>
+      <div class="chart-name">Density Heatmap (Mapbox)</div>
+      <div class="chart-desc">Geographic heatmap over NYC showing station traffic concentration using Mapbox tile layer and lat/long from the 126K-row subway dataset.</div>
+      <div class="chart-decision">Density map over point map &mdash; shows concentration patterns, not just locations. Reveals corridor clusters invisible in a dot scatter.</div>
+    </div>
+    <div class="chart-card cc-warn">
+      <div class="chart-icon">&#9646;</div>
+      <div class="chart-name">Bullet Bar Chart — OMNY Adoption</div>
+      <div class="chart-desc">Horizontal bullet bar showing OMNY adoption % against a 50% reference line target. Tooltip reveals fare class breakdown.</div>
+      <div class="chart-decision">Bullet bar over gauge chart &mdash; more information-dense, avoids the wasted space of a semicircle. Few&rsquo;s alternative to gauges.</div>
+    </div>
+    <div class="chart-card cc-tech">
+      <div class="chart-icon">&#128203;</div>
+      <div class="chart-name">KPI Text Table with Tooltip Drill-Down</div>
+      <div class="chart-desc">Domain-level KPI summary (Safety 49%, Service Reliability 101%/92%, Infrastructure 131%) with tooltip revealing sub-indicator breakdown on hover.</div>
+      <div class="chart-decision">KPI domains sorted by failure &mdash; Safety first. Direct attention to worst performer per <em>Big Book of Dashboards</em> principle.</div>
+    </div>
+  </div>
+</div>
+
+<!-- REQUIREMENTS -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-green"></div><div class="section-header-label">Requirements Coverage</div><div class="section-header-sub">All 8 assignment requirements &middot; one-to-one solution mapping</div><div class="section-header-line"></div></div>
+
+  <div class="req-table-wrap">
+    <table>
+      <thead><tr><th>Requirement</th><th>Solution Built</th><th>Data Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Total riders &ge; 4M target</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4M hardcoded target &middot; &#9650;&#9660; delta indicator</td><td>Daily Ridership</td></tr>
+        <tr><td><strong>Bridges &amp; Tunnels &ge; 850K</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 850K target</td><td>Daily Ridership</td></tr>
+        <tr><td><strong>Staten Island Railway &ge; 4K</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4K target</td><td>Daily Ridership</td></tr>
+        <tr><td><strong>OMNY adoption &ge; 50%</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Bullet bar against 50% reference line &middot; fare class tooltip</td><td>Hourly Subway (6hr)</td></tr>
+        <tr><td><strong>Geographic traffic areas</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Mapbox density heatmap &middot; station-level lat/long</td><td>Hourly Subway (6hr)</td></tr>
+        <tr><td><strong>Borough ridership &ge; 120K per 6hrs</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Small multiples &middot; 5 panels &middot; 120K reference line per panel</td><td>Hourly Subway (6hr)</td></tr>
+        <tr><td><strong>Transfers &ge; 4K per 6hrs</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4K transfer target</td><td>Daily Ridership</td></tr>
+        <tr><td><strong>KPI summary</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Domain rollup (Safety, Reliability, Infrastructure) &middot; tooltip drill-down</td><td>MTA KPIs</td></tr>
+        <tr><td><strong>Dynamic data updates</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Live Google Sheets connector &middot; auto-refresh on source update</td><td>All 3 sources</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DESIGN PRINCIPLES -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Design Principles Applied</div><div class="section-header-sub">Every decision sourced &middot; Tufte &middot; Few &middot; Big Book of Dashboards</div><div class="section-header-line"></div></div>
+
+  <div class="design-table-wrap">
+    <table>
+      <thead><tr><th>Decision</th><th>Principle</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Small multiples with independent axes</strong></td><td>Avoid scale distortion across boroughs with very different ridership volumes</td><td>Tufte</td></tr>
+        <tr><td><strong>Fixed sparkline axis (3M&ndash;5M, not zero-based)</strong></td><td>Show meaningful variation &mdash; zero-based axis compresses the signal into flatness</td><td>Tufte</td></tr>
+        <tr><td><strong>KPI domains sorted by failure (Safety first)</strong></td><td>Direct attention to the worst performer immediately</td><td>Big Book of Dashboards</td></tr>
+        <tr><td><strong>Instruction subtitles on interactive elements</strong></td><td>Reduce cognitive load &mdash; tell users what to do with each element</td><td>Uber dashboard reference</td></tr>
+        <tr><td><strong>&#9650;&#9660; arrows with green/orange encoding</strong></td><td>Preattentive shape + color attributes signal status before reading</td><td>Class content</td></tr>
+        <tr><td><strong>Density map over point map</strong></td><td>Show concentration patterns, not just locations &mdash; corridors invisible in dot scatter</td><td>Assignment requirement</td></tr>
+        <tr><td><strong>Direct line labeling over legend</strong></td><td>Reduce eye travel between chart and legend</td><td>Big Book of Dashboards Ch. 33</td></tr>
+        <tr><td><strong>Bullet bar over gauge chart (OMNY)</strong></td><td>More information-dense, avoids wasted space of semicircle gauge</td><td>Stephen Few</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- REFLECTIONS
+<div class="section">
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Reflection &amp; Learnings</div><div class="section-header-line"></div></div>
+  <div class="three-grid">
+    <div class="refl-card">
+      <div class="refl-icon">&#127919;</div>
+      <div class="refl-title">Audience shapes every decision</div>
+      <div class="refl-desc">Designing for a line coordinator &mdash; not an executive, not an analyst &mdash; meant operational specificity mattered more than high-level trend. The 6-hour borough breakdown exists because a coordinator needs to know which borough is underperforming right now, not month-to-date. Audience definition was the first constraint.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">&#128202;</div>
+      <div class="refl-title">Live connections change the build</div>
+      <div class="refl-desc">Connecting via Tableau Server connector to three live Google Sheets forced decisions that a static extract doesn&rsquo;t. Join logic, blending strategy, and calculated field scope all had to account for dynamic refresh &mdash; a field that works on an extract may silently break on a live source if aggregation assumptions don&rsquo;t hold.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">&#9888;</div>
+      <div class="refl-title">The identified gap: conditional BAN alerting</div>
+      <div class="refl-desc">The primary improvement flagged in feedback was conditional color alerting on BAN cards &mdash; changing the number color itself (not just the delta arrow) when a threshold is missed. This would surface critical failures at a glance without the user reading the % delta. It&rsquo;s the next iteration on this dashboard.</div>
+    </div>
+  </div>
+</div>
+ -->
+<!-- TABLEAU PUBLIC CTA -->
+<div class="section" style="padding-bottom:80px;">
+  <div class="public-cta">
+    <div class="public-cta-left">
+      <h3>View this dashboard &amp; future projects on Tableau Public</h3>
+      <p>This profile will be updated as new Tableau projects are completed &mdash; including upcoming coursework dashboards, personal data projects, and any BI work added to the portfolio. All visualizations are live and interactive.</p>
+    </div>
+    <a class="public-cta-btn" href="https://public.tableau.com/app/profile/khai.tran3117/vizzes" target="_blank" rel="noopener">
+      &#128202; Tableau Public &rarr;
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left"><strong>Khai Tran</strong> &middot; Northeastern University &middot; MISM 3501 &middot; Spring 2026</div>
+  <div class="footer-right">
+    <span class="fpill">Tableau</span><span class="fpill">Live Google Sheets</span><span class="fpill">126K+ Rows</span><span class="fpill">8 Requirements</span><span class="fpill">MTA Open Data</span>
+  </div>
+</footer>
+
+<script>
+const h = document.getElementById('hamburger');
+h && h.addEventListener('click', () => h.classList.toggle('open'));
+// Show placeholder if screenshot not loaded after 1s
+setTimeout(() => {
+  const img = document.querySelector('.dashboard-preview img');
+  if (img && !img.complete) {
+    img.parentElement.style.display = 'none';
+    document.getElementById('dashboard-placeholder').style.display = 'flex';
+  }
+}, 1000);
+</script>
+</body>
+</html>
