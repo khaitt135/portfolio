@@ -510,6 +510,7 @@ footer {
     <a href="#featured">Projects</a>
     <a href="#analytics">Analytics & BI</a>
     <a href="#automation">AI & Automation</a>
+    <a href="#more">More</a>
     <a class="nav-cta" href="/cdn-cgi/l/email-protection#55223a273e7b3e3d343c21153238343c397b363a38">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -521,6 +522,7 @@ footer {
   <a href="#featured"   onclick="closeMenu()">Projects</a>
   <a href="#analytics"  onclick="closeMenu()">Analytics & BI</a>
   <a href="#automation" onclick="closeMenu()">AI & Automation</a>
+  <a href="#more"       onclick="closeMenu()">More About Me</a>
   <a href="/cdn-cgi/l/email-protection#f1869e839adf9a99909885b1969c90989ddf929e9c" class="drawer-cta">Get in Touch →</a>
 </div>
 
@@ -857,6 +859,149 @@ footer {
           <span class="ctag">Streamlit</span>
           <span class="ctag">Pandas</span>
           <span class="ctag">ML</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MORE ABOUT ME -->
+<div class="section" id="more">
+  <div class="cat-section">
+    <div class="cat-label">
+      <div class="cat-dot" style="background:var(--pink)"></div>
+      <div class="cat-title">More About Me</div>
+      <div class="cat-line"></div>
+    </div>
+    <!-- Folder icon — SVG shape, centered, stickers float above -->
+    <style>
+    .fld-section{
+      display:flex;flex-direction:column;align-items:center;
+      padding:20px 0 8px;
+    }
+    .fld-link{
+      display:inline-flex;flex-direction:column;align-items:center;gap:16px;
+      text-decoration:none;color:inherit;cursor:pointer;
+    }
+    /* Container holds the SVG + stickers together */
+    .fld-container{
+      position:relative;
+      width:220px;
+      /* extra top padding so stickers don't clip */
+      padding-top:52px;
+      transition:transform 0.24s ease, filter 0.24s ease;
+      filter:drop-shadow(0 10px 24px rgba(20,100,210,0.30));
+    }
+    .fld-link:hover .fld-container{
+      transform:translateY(-7px) scale(1.04);
+      filter:drop-shadow(0 18px 36px rgba(20,100,210,0.42));
+    }
+    /* SVG folder body */
+    .fld-svg{ display:block;width:220px;height:auto; }
+
+    /* Stickers — absolutely positioned over the folder */
+    .fld-stickers{
+      position:absolute;
+      /* sit on the top third of the folder body */
+      top:16px;
+      left:50%;transform:translateX(-50%);
+      display:flex;align-items:flex-end;gap:2px;
+      pointer-events:none;
+    }
+    .sk2{
+      font-size:42px;line-height:1;display:inline-block;
+      filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+      transform-origin:bottom center;
+    }
+    .sk2:nth-child(1){ transform:rotate(-20deg) translateY(8px); font-size:38px; }
+    .sk2:nth-child(2){ transform:rotate(0deg)   translateY(0px); font-size:46px; }
+    .sk2:nth-child(3){ transform:rotate(10deg)  translateY(4px); font-size:36px; }
+    .sk2:nth-child(4){ transform:rotate(-8deg)  translateY(2px); font-size:32px; }
+    /* AIESEC logo circle */
+    .sk2-logo{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:38px;height:38px;border-radius:50%;
+      background:#fff;border:2.5px solid rgba(255,255,255,0.9);
+      box-shadow:0 3px 10px rgba(0,0,0,0.28);
+      font-size:13px;font-weight:900;color:#0057b7;
+      transform:rotate(-12deg) translateY(4px);
+      flex-shrink:0;overflow:hidden;
+    }
+    .sk2-logo img{ width:100%;height:100%;object-fit:contain; }
+
+    /* Label below */
+    .fld-label{ text-align:center; }
+    .fld-label-title{
+      font-size:16px;font-weight:700;color:var(--text);
+      margin-bottom:3px;letter-spacing:-0.01em;
+    }
+    .fld-label-sub{
+      font-size:11px;font-weight:300;color:var(--text-3);
+    }
+    </style>
+
+    <div class="fld-section">
+      <a class="fld-link" href="projects/creative.html">
+
+        <div class="fld-container">
+          <!-- Stickers floating on top of the folder -->
+          <div class="fld-stickers">
+            <span class="sk2">&#128247;</span><!-- 📷 -->
+            <span class="sk2">&#128008;</span><!-- 🐈 -->
+            <div class="sk2-logo">
+              <img src="assets/aiesec-logo.png" alt="AIESEC"
+                onerror="this.style.display='none';this.parentElement.textContent='A';">
+            </div>
+            <span class="sk2">&#128008;</span><!-- 🐈 -->
+            <span class="sk2">&#127775;</span><!-- ✧ star -->
+          </div>
+
+          <!-- SVG folder — matches the macOS blue folder exactly -->
+          <svg class="fld-svg" viewBox="0 0 220 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tabG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#72ccf8"/>
+                <stop offset="100%" stop-color="#42a6ef"/>
+              </linearGradient>
+              <linearGradient id="bodyG" x1="0" y1="0" x2="0.2" y2="1">
+                <stop offset="0%"   stop-color="#64c8f8"/>
+                <stop offset="45%"  stop-color="#3498e8"/>
+                <stop offset="100%" stop-color="#1e76d4"/>
+              </linearGradient>
+              <linearGradient id="flapG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0.10)"/>
+              </linearGradient>
+              <!-- subtle inner-shadow overlay on body -->
+              <linearGradient id="shineG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="rgba(255,255,255,0.22)"/>
+                <stop offset="30%"  stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Tab ear — top-left, small rounded rectangle -->
+            <path d="M8,22 Q8,12 18,12 L82,12 Q90,12 94,20 L100,30 L8,30 Z"
+                  fill="url(#tabG)"/>
+
+            <!-- Main body — full width rounded rect -->
+            <rect x="2" y="28" width="216" height="138" rx="14" fill="url(#bodyG)"/>
+
+            <!-- Flap highlight — thin bright strip near top of body -->
+            <rect x="2" y="28" width="216" height="16" rx="0" fill="url(#flapG)"/>
+            <!-- rounded top corners for the flap -->
+            <path d="M2,44 L218,44 L218,28 Q218,14 204,14" fill="none"/>
+
+            <!-- Inner shine overlay top -->
+            <rect x="2" y="28" width="216" height="50" rx="0" fill="url(#shineG)" opacity="0.6"/>
+
+            <!-- Thin white separator line (the "paper" line inside real folders) -->
+            <rect x="2" y="44" width="216" height="3" fill="rgba(255,255,255,0.45)" rx="1"/>
+          </svg>
+        </div>
+
+        <div class="fld-label">
+          <div class="fld-label-title">More About Me</div>
+          <div class="fld-label-sub">Leadership &middot; Campaigns &middot; Photography</div>
         </div>
       </a>
     </div>
