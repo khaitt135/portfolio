@@ -126,7 +126,7 @@ td strong{color:var(--text);font-weight:500;}
 .req-table-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);}
 .req-table-wrap th{color:var(--green);}
 .req-met{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--green);}
-.req-met::before{content:'&#10003;';font-size:11px;}
+.req-met::before{content:'\2713';font-size:11px;}
 
 /* CALC FIELDS */
 .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -136,13 +136,52 @@ td strong{color:var(--text);font-weight:500;}
 .calc-desc{font-size:11px;font-weight:300;color:var(--text-3);line-height:1.55;}
 .calc-card:nth-child(1){animation-delay:0.08s;}.calc-card:nth-child(2){animation-delay:0.16s;}.calc-card:nth-child(3){animation-delay:0.24s;}.calc-card:nth-child(4){animation-delay:0.32s;}.calc-card:nth-child(5){animation-delay:0.40s;}.calc-card:nth-child(6){animation-delay:0.48s;}.calc-card:nth-child(7){animation-delay:0.56s;}
 
-/* REFLECTIONS */
-.refl-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.2s,box-shadow 0.2s;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
-.refl-card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
-.refl-icon{font-size:22px;margin-bottom:10px;}
-.refl-title{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
-.refl-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
-.refl-card:nth-child(1){animation-delay:0.1s;}.refl-card:nth-child(2){animation-delay:0.2s;}.refl-card:nth-child(3){animation-delay:0.3s;}
+/* FLOWCHART */
+.flow-stage{margin-bottom:48px;}
+.stage-header-row{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.stage-num{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;}
+.sn-1{background:var(--tech);}.sn-2{background:var(--mkt);}
+.stage-title-text{font-size:18px;font-weight:700;}
+.st-1{color:var(--tech);}.st-2{color:var(--mkt);}
+.stage-q{font-size:10px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);margin-left:56px;margin-bottom:18px;}
+.flow-col{display:flex;flex-direction:column;gap:2px;margin-left:20px;}
+.flow-row-item{display:flex;align-items:stretch;gap:0;}
+.flow-conn{width:38px;display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.flow-dot-circle{width:11px;height:11px;border-radius:50%;border:2px solid;background:var(--bg);margin-top:17px;flex-shrink:0;}
+.fd-1{border-color:var(--tech);}.fd-2{border-color:var(--mkt);}
+.flow-vert-line{width:2px;flex:1;}
+.fv-1{background:rgba(0,119,182,0.2);}.fv-2{background:rgba(232,93,4,0.2);}
+.flow-node{flex:1;background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:4px 0;backdrop-filter:blur(6px);transition:border-color 0.18s;}
+.flow-node:hover{border-color:var(--border2);}
+.fn-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;}
+.fn-body{font-size:11px;font-weight:300;color:var(--text-2);line-height:1.6;}
+.fn-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.ftag{font-size:9px;font-weight:500;padding:2px 8px;border-radius:3px;}
+.ft-blue{background:rgba(0,119,182,0.09);border:1px solid rgba(0,119,182,0.22);color:var(--tech);}
+.ft-warn{background:rgba(180,83,9,0.09);border:1px solid rgba(180,83,9,0.22);color:var(--warn);}
+.ft-inter{background:rgba(124,58,237,0.09);border:1px solid rgba(124,58,237,0.22);color:var(--inter);}
+.ft-green{background:rgba(22,101,52,0.09);border:1px solid rgba(22,101,52,0.22);color:var(--green);}
+.ft-neutral{background:rgba(0,0,0,0.04);border:1px solid var(--border);color:var(--text-3);}
+.ft-red{background:rgba(190,24,93,0.09);border:1px solid rgba(190,24,93,0.22);color:var(--pink);}
+.loop-note{margin-left:56px;margin-top:6px;margin-bottom:8px;padding:8px 14px;border-left:2px solid;font-size:10px;font-weight:400;color:var(--text-4);background:rgba(255,255,255,0.4);border-radius:0 6px 6px 0;font-style:italic;}
+.ln-1{border-color:var(--tech);}.ln-2{border-color:var(--mkt);}
+.stage-divider{display:flex;align-items:center;gap:12px;margin:8px 0 32px;}
+.sd-line{flex:1;height:1px;background:var(--border);}
+.sd-text{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-4);white-space:nowrap;}
+
+/* FINDINGS */
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.finding-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);position:relative;overflow:hidden;}
+.finding-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.fc-warn::before{background:var(--warn);}.fc-inter::before{background:var(--inter);}
+.finding-label{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.fl-warn{color:var(--warn);}.fl-inter{color:var(--inter);}
+.finding-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3;}
+.finding-body{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.finding-body strong{color:var(--text);font-weight:500;}
+.finding-verdict{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;font-weight:500;color:var(--text-2);}
+.finding-verdict span{font-weight:700;color:var(--text);}
+.finding-card:nth-child(1){animation-delay:0.08s;}.finding-card:nth-child(2){animation-delay:0.16s;}
 
 /* TABLEAU PUBLIC CTA */
 .public-cta{background:rgba(31,119,180,0.07);border:1.5px solid rgba(31,119,180,0.25);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;}
@@ -159,8 +198,8 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:900px){nav{padding:0 24px;}.nav-links{display:none;}.nav-hamburger{display:flex;}.page-hero,.section{padding-left:24px;padding-right:24px;}.page-hero{padding-top:100px;padding-bottom:56px;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid{grid-template-columns:1fr 1fr;}footer{padding:22px 24px;}}
-@media(max-width:560px){.stats-row{flex-wrap:wrap;}.stat-item{min-width:50%;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid{grid-template-columns:1fr;}.public-cta{flex-direction:column;}}
+@media(max-width:900px){nav{padding:0 24px;}.nav-links{display:none;}.nav-hamburger{display:flex;}.page-hero,.section{padding-left:24px;padding-right:24px;}.page-hero{padding-top:100px;padding-bottom:56px;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid,.process-grid,.paradox-grid,.findings-grid{grid-template-columns:1fr 1fr;}footer{padding:22px 24px;}}
+@media(max-width:560px){.stats-row{flex-wrap:wrap;}.stat-item{min-width:50%;}.two-grid,.three-grid,.four-grid,.chart-grid,.calc-grid,.process-grid,.paradox-grid,.findings-grid{grid-template-columns:1fr;}.public-cta{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -195,7 +234,7 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       </div>
     </a>
 
-    <p class="hero-desc">An operational monitoring dashboard designed for an <strong>MTA line coordinator audience</strong> &mdash; balancing station-level granularity (126K+ rows, 6-hour borough breakdowns) with strategic summary (KPI domain rollups, 7-day ridership trend). Every design decision traces back to a principle: Tufte, Few, or direct assignment constraint.</p>
+    <p class="hero-desc">The challenge: an operational dashboard for a <strong>senior MTA line coordinator</strong> — daily-level decisions, one screen. The conflict: <strong>3 data sources with mismatched date ranges</strong>, no unified filter possible, and a live data requirement. The approach: make deliberate trade-offs — independent source filters, suppressed granularity where it misleads — while keeping every core business need intact.</p>
 
     <div class="meta-row">
       <span class="mpill tab">Tableau Desktop</span>
@@ -234,7 +273,7 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
 
 <!-- DATA SOURCES -->
 <div class="section">
-  <div class="section-header"><div class="sha sha-tab"></div><div class="section-header-label">Data Sources</div><div class="section-header-sub">3 live Google Sheets &middot; connected to MTA open data</div><div class="section-header-line"></div></div>
+  <div class="section-header"><div class="sha sha-tab"></div><div class="section-header-label">Data Sources</div><div class="section-header-sub">3 live Google Sheets &middot; 126K+ rows &middot; connected to MTA open data</div><div class="section-header-line"></div></div>
 
   <div class="ds-table-wrap">
     <table>
@@ -263,151 +302,166 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
   </div>
 </div>
 
-<!-- CALCULATED FIELDS -->
+<!-- THE PROCESS — TWO-STAGE FLOWCHART -->
 <div class="section">
-  <div class="section-header"><div class="sha sha-tech"></div><div class="section-header-label">Calculated Fields</div><div class="section-header-sub">7 custom fields built from raw data</div><div class="section-header-line"></div></div>
+  <div class="section-header"><div class="sha sha-tech"></div><div class="section-header-label">The Process</div><div class="section-header-sub">Two stages &middot; bottom-up &middot; repeat until no more why</div><div class="section-header-line"></div></div>
 
-  <div class="calc-grid">
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">SUM</span>Total Daily Riders</div>
-      <div class="calc-desc">Aggregates across all 6 transit mode columns (Subway, Bus, LIRR, Metro-North, Access-A-Ride, Bridges &amp; Tunnels) from the Daily Ridership source into a single daily figure.</div>
+  <!-- STAGE 1: EDA -->
+  <div class="flow-stage">
+    <div class="stage-header-row">
+      <div class="stage-num sn-1">1</div>
+      <div class="stage-title-text st-1">EDA &mdash; Hypotheses &rarr; LOD Fields</div>
     </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">LOD</span>vs Last Week %</div>
-      <div class="calc-desc">Period-over-period delta comparing today&rsquo;s total ridership against the same day 7 days prior. Drives the &#9650;&#9660; arrow indicators on BAN cards.</div>
+    <div class="stage-q">Is everything ok? Anything breaking? How often do they need to see this?</div>
+
+    <div class="flow-col">
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-1"></div><div class="flow-vert-line fv-1"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Pull raw numbers — what does each field actually tell you?</div>
+          <div class="fn-body">Daily: 1,765 rows, 6 modes. Hourly: only 8 days. KPIs: stale 2017–2021. Cross-source join impossible — modes don't match across datasets.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-warn">8 DAYS HOURLY ONLY</span>
+            <span class="ftag ft-warn">STALE KPIs</span>
+            <span class="ftag ft-blue">NO CROSS-JOIN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-1"></div><div class="flow-vert-line fv-1"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Test what the numbers say — targets, comparisons, deltas</div>
+          <div class="fn-body">3/3 daily targets missed. OMNY passing at 62.3%. Daily delta noisy — Sunday vs Saturday meaningless without day-type context. YoY shows real recovery (+2% to +23%).</div>
+          <div class="fn-tags">
+            <span class="ftag ft-warn">3/3 DAILY TARGETS MISSED</span>
+            <span class="ftag ft-green">OMNY PASSING</span>
+            <span class="ftag ft-warn">HOLIDAY DISTORTION</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-1"></div><div class="flow-vert-line fv-1"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Identify parent KPIs — filter noise before building fields</div>
+          <div class="fn-body">25 root KPIs out of 129. Filter: Parent Sequence = 0. LIRR OTP branches into 11 children. Subway OTP into 24 lines. Show parents only — children on hover.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-inter">25 PARENTS</span>
+            <span class="ftag ft-neutral">104 CHILDREN IN TOOLTIPS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-1"></div><div class="flow-vert-line fv-1"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Group into 6 operational domains — each maps to a coordinator decision</div>
+          <div class="fn-body">Volume &middot; Service Reliability &middot; Infrastructure &middot; Safety &middot; OMNY &middot; Connectivity. Build LOD fields bottom-up: hypothesis first, then expression.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-blue">6 DOMAINS</span>
+            <span class="ftag ft-blue">7 CALCULATED FIELDS</span>
+            <span class="ftag ft-blue">LOD + BOOL + DIV</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">FIXED</span>vs Target %</div>
-      <div class="calc-desc">Compares actual daily values against hardcoded targets: 4M total riders, 850K Bridges &amp; Tunnels, 4K Staten Island Railway, 4K avg transfers per 6 hrs.</div>
-    </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">DIV</span>OMNY Adoption Rate</div>
-      <div class="calc-desc">OMNY ridership &divide; total ridership &mdash; feeds the bullet bar chart against the 50% adoption target reference line.</div>
-    </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">SUM</span>KPI % of MTD Target</div>
-      <div class="calc-desc">YTD Actual &divide; YTD Target, aggregated at domain level (Safety, Service Reliability, Infrastructure) for the KPI overview text table.</div>
-    </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">DIV</span>Transfer Rate per Station</div>
-      <div class="calc-desc">Transfers &divide; Ridership at station granularity. Surfaces in the map tooltip alongside raw ridership, transfers, and OMNY usage per station.</div>
-    </div>
-    <div class="calc-card">
-      <div class="calc-name"><span class="calc-fx">BOOL</span>7-Day Filter Boolean</div>
-      <div class="calc-desc">Flags records within the last 7 days to constrain the sparkline to the correct window while keeping the full dataset available for other views.</div>
-    </div>
+    <div class="loop-note ln-1">↻ Pull numbers &rarr; check if story holds &rarr; revise hypothesis &rarr; repeat until limitation is clear</div>
   </div>
+
+  <!-- Stage divider -->
+  <div class="stage-divider">
+    <div class="sd-line"></div>
+    <div class="sd-text">data understood &rarr; now design</div>
+    <div class="sd-line"></div>
+  </div>
+
+  <!-- STAGE 2: DESIGN -->
+  <div class="flow-stage">
+    <div class="stage-header-row">
+      <div class="stage-num sn-2">2</div>
+      <div class="stage-title-text st-2">Design &mdash; Layout, Hierarchy, Story</div>
+    </div>
+    <div class="stage-q">Which metrics connect? What's seen first, second? Answer why — until you can't go deeper.</div>
+
+    <div class="flow-col">
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-2"></div><div class="flow-vert-line fv-2"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Map metrics to coordinator decisions — urgency sets the order</div>
+          <div class="fn-body">BANs: daily alert — act instantly. Borough panels: where to act now. OMNY bullet bar: which fare class needs assistance. KPI table: shift strategy. Map: geographic density overview.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-warn">INSTANT → LOCAL → STRATEGIC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-2"></div><div class="flow-vert-line fv-2"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Define visual hierarchy: 10s → 30s → 60s</div>
+          <div class="fn-body"><strong>10s:</strong> BANs — 3 numbers, green/red, done. <strong>30s:</strong> Borough + OMNY — where and who. <strong>60s:</strong> Map + KPIs — geographic drill, domain benchmarks.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-neutral">STATUS → COMPARE → INVESTIGATE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-2"></div><div class="flow-vert-line fv-2"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Choose chart type per metric — then kill anything that doesn't justify itself</div>
+          <div class="fn-body">Sparklines killed: redundant with BANs. Heat map killed: Bronx/SI structurally can't hit 120K — permanent false alarm. Separate tabs killed: coordinator needs one-screen glance. OMNY BAN killed: structural metric, not daily-volatile.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-red">KILLED 4 IDEAS</span>
+            <span class="ftag ft-neutral">TUFTE: DATA-INK RATIO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-row-item">
+        <div class="flow-conn"><div class="flow-dot-circle fd-2"></div><div class="flow-vert-line fv-2"></div></div>
+        <div class="flow-node">
+          <div class="fn-title">Merge requirements into shared visuals — never multiply charts</div>
+          <div class="fn-body">Map + time block filter covers geography AND borough 120K requirement. Transfer status embedded as subtitle on Borough chart. KPIs distributed by domain, not one monolithic section.</div>
+          <div class="fn-tags">
+            <span class="ftag ft-neutral">MERGE DON'T MULTIPLY</span>
+            <span class="ftag ft-blue">LIVE DATA · AUTO-UPDATE</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="loop-note ln-2">↻ Layout &rarr; critique &rarr; simplify &rarr; does it answer "why?" one level deeper? Repeat.</div>
+  </div>
+
 </div>
 
-<!-- CHART TYPES -->
+<!-- KEY FINDINGS & VERDICT -->
 <div class="section">
-  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Chart Types &amp; Design Decisions</div><div class="section-header-sub">6 chart types &middot; each selected against a principle</div><div class="section-header-line"></div></div>
+  <div class="section-header"><div class="sha sha-warn"></div><div class="section-header-label">Key Findings &amp; Verdict</div><div class="section-header-sub">What the data exposed &middot; what broke &middot; how it was resolved</div><div class="section-header-line"></div></div>
 
-  <div class="chart-grid">
-    <div class="chart-card cc-tab">
-      <div class="chart-icon">&#128287;</div>
-      <div class="chart-name">BAN Cards with Delta Indicators</div>
-      <div class="chart-desc">4 big number cards for Total Riders, B&amp;T Riders, SIR Riders, and Avg Transfers. Each shows both % vs last week and % vs monthly target.</div>
-      <div class="chart-decision">&#9650;&#9660; arrows + green/orange color encoding &mdash; preattentive attributes from class content. Immediate attention to off-target metrics.</div>
+  <div class="findings-grid">
+
+    <div class="finding-card fc-warn">
+      <div class="finding-label fl-warn">The Baseline Trap &mdash; Sunday Distortion</div>
+      <div class="finding-title">Anchoring to a Sunday makes weekday recovery look bigger than it is</div>
+      <div class="finding-body">By anchoring an index to a Sunday, a paradox emerges: modes with heavy weekday swings appear to have "recovered" more than they actually have. Monday's normal commuter spike reads as +160% growth — when it's just the weekly cycle repeating. The index is technically correct and completely misleading.</div>
+      <div class="finding-verdict"><span>Verdict:</span> A Cycle Plot would solve this by separating day-types. For this dashboard, the weekly average in the comparison table smooths the distortion. The paradox is real — the workaround is pragmatic.</div>
     </div>
-    <div class="chart-card cc-inter">
-      <div class="chart-icon">&#128200;</div>
-      <div class="chart-name">Small Multiples — 5 Borough Panels</div>
-      <div class="chart-desc">5 independent line charts (Bronx, Brooklyn, Manhattan, Queens, Staten Island), each with their own y-axis and a shared 120K/6-hour reference line.</div>
-      <div class="chart-decision">Independent axes prevent scale distortion across boroughs &mdash; Tufte principle. Enables like-for-like comparison without flattening low-volume boroughs.</div>
+
+    <div class="finding-card fc-inter">
+      <div class="finding-label fl-inter">The Aggregation Paradox &mdash; Simpson's Paradox</div>
+      <div class="finding-title">Aggregating all transit modes into one total hides what's actually alarming</div>
+      <div class="finding-body">Aggregating 7 modes into "MTA Total" produces a number that looks stable while individual modes tell completely different stories — SIR dropped 35% WoW, B&amp;T only 8%, Subway in the middle. The total shows &minus;26% and buries both extremes. But the plot twist: showing all 7 modes on one chart creates a 1000x scale problem (Subway at 2.1M vs SIR at 2.6K). The aggregation that hides the problem also prevents a worse visual problem.</div>
+      <div class="finding-verdict"><span>Verdict:</span> Small multiples for borough panels. Mode-level detail pushed to tooltips — guided by subtitle: "Hover to explore individual modes." Tooltips can be counterproductive, but with explicit instruction they're better than a chart that makes SIR invisible.</div>
     </div>
-    <div class="chart-card cc-tab">
-      <div class="chart-icon">&#128200;</div>
-      <div class="chart-name">Sparkline with Fixed Axis</div>
-      <div class="chart-desc">7-day ridership trend line with a fixed y-axis range of 3M&ndash;5M and a 4M daily target reference line.</div>
-      <div class="chart-decision">Fixed axis shows meaningful variation instead of zero-based flatness &mdash; Tufte. Zero-based would compress the signal into noise.</div>
-    </div>
-    <div class="chart-card cc-green">
-      <div class="chart-icon">&#127758;</div>
-      <div class="chart-name">Density Heatmap (Mapbox)</div>
-      <div class="chart-desc">Geographic heatmap over NYC showing station traffic concentration using Mapbox tile layer and lat/long from the 126K-row subway dataset.</div>
-      <div class="chart-decision">Density map over point map &mdash; shows concentration patterns, not just locations. Reveals corridor clusters invisible in a dot scatter.</div>
-    </div>
-    <div class="chart-card cc-warn">
-      <div class="chart-icon">&#9646;</div>
-      <div class="chart-name">Bullet Bar Chart — OMNY Adoption</div>
-      <div class="chart-desc">Horizontal bullet bar showing OMNY adoption % against a 50% reference line target. Tooltip reveals fare class breakdown.</div>
-      <div class="chart-decision">Bullet bar over gauge chart &mdash; more information-dense, avoids the wasted space of a semicircle. Few&rsquo;s alternative to gauges.</div>
-    </div>
-    <div class="chart-card cc-tech">
-      <div class="chart-icon">&#128203;</div>
-      <div class="chart-name">KPI Text Table with Tooltip Drill-Down</div>
-      <div class="chart-desc">Domain-level KPI summary (Safety 49%, Service Reliability 101%/92%, Infrastructure 131%) with tooltip revealing sub-indicator breakdown on hover.</div>
-      <div class="chart-decision">KPI domains sorted by failure &mdash; Safety first. Direct attention to worst performer per <em>Big Book of Dashboards</em> principle.</div>
-    </div>
+
   </div>
 </div>
-
-<!-- REQUIREMENTS -->
-<div class="section">
-  <div class="section-header"><div class="sha sha-green"></div><div class="section-header-label">Requirements Coverage</div><div class="section-header-sub">All 8 assignment requirements &middot; one-to-one solution mapping</div><div class="section-header-line"></div></div>
-
-  <div class="req-table-wrap">
-    <table>
-      <thead><tr><th>Requirement</th><th>Solution Built</th><th>Data Source</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Total riders &ge; 4M target</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4M hardcoded target &middot; &#9650;&#9660; delta indicator</td><td>Daily Ridership</td></tr>
-        <tr><td><strong>Bridges &amp; Tunnels &ge; 850K</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 850K target</td><td>Daily Ridership</td></tr>
-        <tr><td><strong>Staten Island Railway &ge; 4K</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4K target</td><td>Daily Ridership</td></tr>
-        <tr><td><strong>OMNY adoption &ge; 50%</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Bullet bar against 50% reference line &middot; fare class tooltip</td><td>Hourly Subway (6hr)</td></tr>
-        <tr><td><strong>Geographic traffic areas</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Mapbox density heatmap &middot; station-level lat/long</td><td>Hourly Subway (6hr)</td></tr>
-        <tr><td><strong>Borough ridership &ge; 120K per 6hrs</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Small multiples &middot; 5 panels &middot; 120K reference line per panel</td><td>Hourly Subway (6hr)</td></tr>
-        <tr><td><strong>Transfers &ge; 4K per 6hrs</strong></td><td><span class="req-met">&#10003;</span>&nbsp;BAN card with % vs 4K transfer target</td><td>Daily Ridership</td></tr>
-        <tr><td><strong>KPI summary</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Domain rollup (Safety, Reliability, Infrastructure) &middot; tooltip drill-down</td><td>MTA KPIs</td></tr>
-        <tr><td><strong>Dynamic data updates</strong></td><td><span class="req-met">&#10003;</span>&nbsp;Live Google Sheets connector &middot; auto-refresh on source update</td><td>All 3 sources</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- DESIGN PRINCIPLES -->
-<div class="section">
-  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Design Principles Applied</div><div class="section-header-sub">Every decision sourced &middot; Tufte &middot; Few &middot; Big Book of Dashboards</div><div class="section-header-line"></div></div>
-
-  <div class="design-table-wrap">
-    <table>
-      <thead><tr><th>Decision</th><th>Principle</th><th>Source</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Small multiples with independent axes</strong></td><td>Avoid scale distortion across boroughs with very different ridership volumes</td><td>Tufte</td></tr>
-        <tr><td><strong>Fixed sparkline axis (3M&ndash;5M, not zero-based)</strong></td><td>Show meaningful variation &mdash; zero-based axis compresses the signal into flatness</td><td>Tufte</td></tr>
-        <tr><td><strong>KPI domains sorted by failure (Safety first)</strong></td><td>Direct attention to the worst performer immediately</td><td>Big Book of Dashboards</td></tr>
-        <tr><td><strong>Instruction subtitles on interactive elements</strong></td><td>Reduce cognitive load &mdash; tell users what to do with each element</td><td>Uber dashboard reference</td></tr>
-        <tr><td><strong>&#9650;&#9660; arrows with green/orange encoding</strong></td><td>Preattentive shape + color attributes signal status before reading</td><td>Class content</td></tr>
-        <tr><td><strong>Density map over point map</strong></td><td>Show concentration patterns, not just locations &mdash; corridors invisible in dot scatter</td><td>Assignment requirement</td></tr>
-        <tr><td><strong>Direct line labeling over legend</strong></td><td>Reduce eye travel between chart and legend</td><td>Big Book of Dashboards Ch. 33</td></tr>
-        <tr><td><strong>Bullet bar over gauge chart (OMNY)</strong></td><td>More information-dense, avoids wasted space of semicircle gauge</td><td>Stephen Few</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- REFLECTIONS
-<div class="section">
-  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Reflection &amp; Learnings</div><div class="section-header-line"></div></div>
-  <div class="three-grid">
-    <div class="refl-card">
-      <div class="refl-icon">&#127919;</div>
-      <div class="refl-title">Audience shapes every decision</div>
-      <div class="refl-desc">Designing for a line coordinator &mdash; not an executive, not an analyst &mdash; meant operational specificity mattered more than high-level trend. The 6-hour borough breakdown exists because a coordinator needs to know which borough is underperforming right now, not month-to-date. Audience definition was the first constraint.</div>
-    </div>
-    <div class="refl-card">
-      <div class="refl-icon">&#128202;</div>
-      <div class="refl-title">Live connections change the build</div>
-      <div class="refl-desc">Connecting via Tableau Server connector to three live Google Sheets forced decisions that a static extract doesn&rsquo;t. Join logic, blending strategy, and calculated field scope all had to account for dynamic refresh &mdash; a field that works on an extract may silently break on a live source if aggregation assumptions don&rsquo;t hold.</div>
-    </div>
-    <div class="refl-card">
-      <div class="refl-icon">&#9888;</div>
-      <div class="refl-title">The identified gap: conditional BAN alerting</div>
-      <div class="refl-desc">The primary improvement flagged in feedback was conditional color alerting on BAN cards &mdash; changing the number color itself (not just the delta arrow) when a threshold is missed. This would surface critical failures at a glance without the user reading the % delta. It&rsquo;s the next iteration on this dashboard.</div>
-    </div>
-  </div>
-</div>
- -->
 <!-- TABLEAU PUBLIC CTA -->
 <div class="section" style="padding-bottom:80px;">
   <div class="public-cta">
