@@ -876,15 +876,27 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const hamburger = document.getElementById('hamburger');
   const drawer    = document.getElementById('nav-drawer');
+
   hamburger.addEventListener('click', () => {
     const isOpen = drawer.classList.toggle('open');
     hamburger.classList.toggle('open', isOpen);
     hamburger.setAttribute('aria-expanded', isOpen);
   });
+
   function closeMenu() {
     drawer.classList.remove('open');
     hamburger.classList.remove('open');
-    hamburger.setAttribu
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !drawer.contains(e.target)) {
+      closeMenu();
+    }
+  });
+</script>
+</body>
+</html>
