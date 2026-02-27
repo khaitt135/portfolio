@@ -6,429 +6,162 @@
 <title>Brand Onboarding Automation — Khai Tran</title>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #f4efe6;
-  --surface:  #eae3d8;
-  --surface2: #e2dbd0;
-  --border:   #d0c9bc;
-  --border2:  #bdb5a8;
-  --text:     #1d1d1f;
-  --text-2:   #3a3a3c;
-  --text-3:   #6e6e73;
-  --text-4:   #aeaeb2;
-  --mkt:      #e85d04;
-  --tech:     #0077b6;
-  --inter:    #7c3aed;
-  --positive: #2ce247;
-  --warn:     #b45309;
-  --green:    #166534;
-  --blue:     #1d4ed8;
-  --pink:     #be185d;
-  /* Tool-specific accent colors — kept for node identity */
-  --human:    #e85d04;   /* maps to --mkt */
-  --ai:       #7c3aed;   /* maps to --inter */
-  --n8n:      #0077b6;   /* maps to --tech */
-  --hubspot:  #e85d04;
-  --gdocs:    #166534;
-}
+:root{--bg:#f4efe6;--surface:#eae3d8;--surface2:#e2dbd0;--border:#d0c9bc;--border2:#bdb5a8;--text:#1d1d1f;--text-2:#3a3a3c;--text-3:#6e6e73;--text-4:#aeaeb2;--mkt:#e85d04;--tech:#0077b6;--inter:#7c3aed;--positive:#2ce247;--warn:#b45309;--green:#166534;--pink:#be185d;--blue:#1d4ed8;--n8n:#06b6d4;--hubspot:#ff7a59;--gdocs:#1a73e8;--openai:#10a37f;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Google Sans Code',monospace;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");background-size:180px 180px;opacity:0.028;pointer-events:none;}
 
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:rgba(244,239,230,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 48px;justify-content:space-between;}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-dot{width:9px;height:9px;border-radius:50%;background:var(--inter);box-shadow:0 0 10px rgba(124,58,237,0.45);animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.72);}}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.18s;}
+.nav-links a:hover{color:var(--text);}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--inter);border:1.5px solid rgba(124,58,237,0.35);background:rgba(124,58,237,0.05);padding:7px 18px;border-radius:24px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background 0.18s;}
+.nav-back:hover{background:rgba(124,58,237,0.11);}
+.nav-back::before{content:'\2190';}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);flex-direction:column;gap:5px;}
+.nav-hamburger span{display:block;height:1.5px;background:var(--text);border-radius:2px;}
+.nav-hamburger span:nth-child(1){width:22px;}.nav-hamburger span:nth-child(2){width:15px;}.nav-hamburger span:nth-child(3){width:22px;}
 
-body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Google Sans Code', monospace;
-  font-weight:400;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+/* HERO */
+.page-hero{padding:100px 48px 72px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.blob-wrap{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(72px);mix-blend-mode:multiply;animation:blobFloat 8s ease-in-out infinite;}
+.blob-1{width:480px;height:480px;background:radial-gradient(circle,rgba(6,182,212,0.18) 0%,rgba(6,182,212,0) 70%);top:-80px;left:-60px;}
+.blob-2{width:360px;height:360px;background:radial-gradient(circle,rgba(124,58,237,0.16) 0%,rgba(124,58,237,0) 70%);top:5%;right:5%;animation-delay:2s;}
+.blob-3{width:300px;height:300px;background:radial-gradient(circle,rgba(16,163,127,0.14) 0%,rgba(16,163,127,0) 70%);bottom:0;left:40%;animation-delay:4s;}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.97);}}
+.hero-inner{position:relative;z-index:2;}
 
-body::after {
-  content:'';
-  position:fixed; inset:0; z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  background-size:180px 180px;
-  opacity:0.028;
-  pointer-events:none;
-}
+.context-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.08);border:1.5px solid rgba(124,58,237,0.22);border-radius:6px;padding:6px 14px;margin-bottom:20px;opacity:0;animation:fadeUp 0.5s 0.06s ease forwards;}
+.context-pill span{font-size:11px;font-weight:600;color:var(--inter);letter-spacing:0.04em;}
 
-/* ── NAV ── */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:200;
-  height:64px;
-  background:rgba(244,239,230,0.9);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  display:flex; align-items:center;
-  padding:0 48px;
-  justify-content:space-between;
-}
-.nav-logo {
-  font-size:15px; font-weight:700;
-  color:var(--text); letter-spacing:-0.02em;
-  display:flex; align-items:center; gap:9px;
-  text-decoration:none;
-}
-.nav-logo-dot {
-  width:9px; height:9px; border-radius:50%;
-  background:var(--inter);
-  box-shadow:0 0 10px rgba(124,58,237,0.45);
-  animation:pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.72);} }
-.nav-links { display:flex; gap:36px; align-items:center; }
-.nav-links a {
-  font-size:12px; font-weight:500;
-  letter-spacing:0.04em; text-transform:uppercase;
-  color:var(--text-2); text-decoration:none;
-  transition:color 0.18s;
-}
-.nav-links a:hover { color:var(--text); }
-.nav-back {
-  font-size:11px; font-weight:500;
-  letter-spacing:0.06em; text-transform:uppercase;
-  color:var(--inter);
-  border:1.5px solid rgba(124,58,237,0.35);
-  background:rgba(124,58,237,0.05);
-  padding:7px 18px; border-radius:24px;
-  text-decoration:none;
-  display:flex; align-items:center; gap:6px;
-  transition:background 0.18s;
-}
-.nav-back:hover { background:rgba(124,58,237,0.11); }
-.nav-back::before { content:'\2190'; }
-.nav-hamburger {
-  display:none; background:none; border:none; cursor:pointer;
-  padding:6px; flex-direction:column; gap:5px; align-items:flex-end;
-}
-.nav-hamburger span {
-  display:block; height:1.5px; background:var(--text); border-radius:2px;
-}
-.nav-hamburger span:nth-child(1){width:22px;}
-.nav-hamburger span:nth-child(2){width:15px;}
-.nav-hamburger span:nth-child(3){width:22px;}
+.hero-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.6s 0.12s ease forwards;}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--text-3);border-radius:2px;}
+.hero-title{font-size:clamp(32px,4.5vw,60px);font-weight:800;line-height:1.06;letter-spacing:-0.04em;margin-bottom:10px;opacity:0;animation:fadeUp 0.6s 0.18s ease forwards;}
+.hero-title .accent{color:var(--inter);}
+.hero-subtitle{font-size:clamp(13px,1.7vw,18px);font-weight:300;color:var(--text-3);margin-bottom:24px;opacity:0;animation:fadeUp 0.6s 0.22s ease forwards;}
 
-/* ── HERO ── */
-.page-hero {
-  padding:100px 48px 72px;
-  max-width:1200px; margin:0 auto;
-  position:relative; z-index:1;
-}
-.blob-wrap { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
-.blob { position:absolute; border-radius:50%; filter:blur(72px); mix-blend-mode:multiply; animation:blobFloat 8s ease-in-out infinite; }
-.blob-1 { width:500px; height:500px; background:radial-gradient(circle,rgba(124,58,237,0.22) 0%,rgba(124,58,237,0) 70%); top:-80px; left:-60px; }
-.blob-2 { width:380px; height:380px; background:radial-gradient(circle,rgba(0,119,182,0.18) 0%,rgba(0,119,182,0) 70%); top:5%; right:5%; animation-delay:2s; }
-.blob-3 { width:300px; height:300px; background:radial-gradient(circle,rgba(232,93,4,0.14) 0%,rgba(232,93,4,0) 70%); bottom:0; left:40%; animation-delay:4s; }
-@keyframes blobFloat { 0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.97);} }
-.hero-inner { position:relative; z-index:2; }
+.honest-framing{background:rgba(180,83,9,0.05);border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:16px 22px;margin-bottom:28px;max-width:760px;opacity:0;animation:fadeUp 0.6s 0.28s ease forwards;}
+.honest-framing p{font-size:13px;font-weight:300;color:var(--text-2);line-height:1.75;}
+.honest-framing p strong{color:var(--text);font-weight:500;}
 
-.hero-eyebrow {
-  font-size:11px; font-weight:400;
-  letter-spacing:0.2em; text-transform:uppercase;
-  color:var(--text-3); margin-bottom:18px;
-  display:flex; align-items:center; gap:12px;
-  opacity:0; animation:fadeUp 0.6s 0.08s ease forwards;
-}
-.hero-eyebrow::before { content:''; width:28px; height:1.5px; background:var(--text-3); border-radius:2px; }
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;opacity:0;animation:fadeUp 0.6s 0.34s ease forwards;}
+.mpill{font-size:10px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,0.55);color:var(--text-3);}
+.mpill.inter{color:var(--inter);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06);}
+.mpill.n8n{color:var(--n8n);border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.06);}
+.mpill.openai{color:var(--openai);border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.06);}
+.mpill.mkt{color:var(--mkt);border-color:rgba(232,93,4,0.3);background:rgba(232,93,4,0.06);}
 
-.hero-title {
-  font-size:clamp(32px,5vw,58px); font-weight:800;
-  line-height:1.06; letter-spacing:-0.03em;
-  margin-bottom:8px; color:var(--text);
-  opacity:0; animation:fadeUp 0.6s 0.14s ease forwards;
-}
-.hero-title span { color:var(--inter); }
+.stats-row{display:flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.42);backdrop-filter:blur(8px);opacity:0;animation:fadeUp 0.6s 0.4s ease forwards;max-width:780px;}
+.stat-item{flex:1;padding:16px 20px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-size:19px;font-weight:800;line-height:1;margin-bottom:5px;color:var(--positive);}
+.stat-val.inter{color:var(--inter);}.stat-val.n8n{color:var(--n8n);}.stat-val.warn{color:var(--warn);}.stat-val.green{color:var(--green);}
+.stat-lbl{font-size:8.5px;font-weight:400;color:var(--text-3);text-transform:uppercase;letter-spacing:0.1em;}
 
-.hero-subtitle {
-  font-size:clamp(14px,2vw,18px); font-weight:300;
-  color:var(--text-3); margin-bottom:24px;
-  opacity:0; animation:fadeUp 0.6s 0.18s ease forwards;
-}
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto;padding:0 48px 72px;position:relative;z-index:1;}
+.section-header{display:flex;align-items:center;gap:0;margin-bottom:32px;opacity:0;animation:fadeUp 0.5s ease forwards;}
+.sha{width:4px;height:28px;border-radius:2px;margin-right:14px;flex-shrink:0;}
+.sha-inter{background:var(--inter);}.sha-n8n{background:var(--n8n);}.sha-openai{background:var(--openai);}.sha-warn{background:var(--warn);}.sha-green{background:var(--green);}
+.section-header-label{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.02em;margin-right:16px;white-space:nowrap;}
+.section-header-sub{font-size:10px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-right:16px;white-space:nowrap;}
+.section-header-line{flex:1;height:1px;background:var(--border);}
 
-/* Outcome badge */
-.outcome-badge {
-  display:inline-flex; align-items:center; gap:14px;
-  background:rgba(124,58,237,0.06);
-  border:1.5px solid rgba(124,58,237,0.25);
-  border-radius:12px; padding:12px 20px;
-  margin-bottom:28px;
-  opacity:0; animation:fadeUp 0.6s 0.22s ease forwards;
-}
-.outcome-icon { font-size:22px; }
-.outcome-title { font-size:13px; font-weight:700; color:var(--inter); margin-bottom:2px; }
-.outcome-sub   { font-size:10px; font-weight:300; color:var(--text-3); }
+.context-note{font-size:13px;font-weight:300;color:var(--text-2);line-height:1.75;max-width:840px;margin-bottom:24px;}
+.context-note strong{color:var(--text);font-weight:500;}
 
-.hero-desc {
-  font-size:15px; font-weight:300; color:var(--text-2);
-  line-height:1.78; max-width:760px; margin-bottom:32px;
-  opacity:0; animation:fadeUp 0.6s 0.28s ease forwards;
-}
-.hero-desc strong { color:var(--text); font-weight:500; }
+/* GRIDS */
+.two-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 
-/* Metric wall */
-.metric-wall {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  border:1px solid var(--border); border-radius:14px;
-  overflow:hidden; background:rgba(255,255,255,0.42);
-  backdrop-filter:blur(8px);
-  opacity:0; animation:fadeUp 0.6s 0.36s ease forwards;
-}
-.mw-item { padding:18px 20px; border-right:1px solid var(--border); }
-.mw-item:last-child { border-right:none; }
-.mw-val { font-size:clamp(18px,2.2vw,24px); font-weight:800; line-height:1; margin-bottom:5px; color:var(--positive); }
-.mw-val.inter { color:var(--inter); }
-.mw-val.tech  { color:var(--tech); }
-.mw-val.mkt   { color:var(--mkt); }
-.mw-val.neutral { color:var(--text); }
-.mw-lbl { font-size:8px; font-weight:400; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; }
+/* CARDS */
+.card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:12px;padding:18px 20px;opacity:0;animation:fadeUp 0.5s ease forwards;transition:border-color 0.2s,box-shadow 0.2s;backdrop-filter:blur(6px);}
+.card:hover{border-color:var(--border2);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.card:nth-child(1){animation-delay:0.1s;}.card:nth-child(2){animation-delay:0.18s;}.card:nth-child(3){animation-delay:0.26s;}
 
-/* ── SECTIONS ── */
-.section { max-width:1200px; margin:0 auto; padding:0 48px 72px; position:relative; z-index:1; }
-.section-header {
-  display:flex; align-items:center; gap:0;
-  margin-bottom:32px;
-  opacity:0; animation:fadeUp 0.5s ease forwards;
-}
-.section-header-accent { width:4px; height:28px; border-radius:2px; margin-right:14px; flex-shrink:0; }
-.acc-inter { background:var(--inter); }
-.acc-tech  { background:var(--tech); }
-.acc-mkt   { background:var(--mkt); }
-.acc-green { background:var(--green); }
-.acc-warn  { background:var(--warn); }
-.section-header-label { font-size:18px; font-weight:700; color:var(--text); letter-spacing:-0.02em; margin-right:16px; white-space:nowrap; }
-.section-header-sub   { font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-right:16px; white-space:nowrap; }
-.section-header-line  { flex:1; height:1px; background:var(--border); }
+/* PHASE BADGE */
+.phase-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:16px;}
+.phase-1{color:var(--n8n);background:rgba(6,182,212,0.08);border:1.5px solid rgba(6,182,212,0.3);}
+.phase-2{color:var(--openai);background:rgba(16,163,127,0.08);border:1.5px solid rgba(16,163,127,0.3);}
 
-/* ── LEGEND ── */
-.legend {
-  display:flex; gap:18px; flex-wrap:wrap; margin-bottom:36px;
-  opacity:0; animation:fadeUp 0.5s 0.1s ease forwards;
-}
-.legend-item { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:400; color:var(--text-3); }
-.legend-dot  { width:9px; height:9px; border-radius:2px; flex-shrink:0; }
+/* FLOWCHART WRAPPER */
+.flow-wrap{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:16px;padding:28px 24px;backdrop-filter:blur(6px);opacity:0;animation:fadeUp 0.5s ease forwards;overflow-x:auto;}
+.flow-title{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-4);margin-bottom:20px;}
 
-/* ── PHASE DIVIDER ── */
-.divider {
-  display:flex; align-items:center; gap:12px;
-  margin:24px 0 12px;
-  opacity:0; animation:fadeUp 0.5s ease forwards;
-}
-.divider-line { flex:1; height:1px; background:var(--border); }
-.divider-text {
-  font-size:10px; font-weight:500;
-  letter-spacing:0.15em; text-transform:uppercase;
-  color:var(--text-4); white-space:nowrap;
-}
+/* SVG flowchart nodes — inline styles only, controlled via SVG attributes */
 
-/* ── NODE ROW ── */
-.node-row {
-  display:flex; align-items:flex-start; gap:14px;
-  opacity:0; animation:fadeUp 0.45s ease forwards;
-}
-.node-row:nth-child(1){animation-delay:0.20s;}
-.node-row:nth-child(2){animation-delay:0.28s;}
-.node-row:nth-child(3){animation-delay:0.36s;}
-.node-row:nth-child(4){animation-delay:0.44s;}
-.node-row:nth-child(5){animation-delay:0.52s;}
-.node-row:nth-child(6){animation-delay:0.60s;}
-.node-row:nth-child(7){animation-delay:0.68s;}
-.node-row:nth-child(8){animation-delay:0.76s;}
+/* TOOL STACK */
+.tool-section{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;backdrop-filter:blur(6px);opacity:0;animation:fadeUp 0.5s 0.12s ease forwards;}
+.tool-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;}
+.tool-row:last-child{margin-bottom:0;}
+.tool-layer{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-4);width:80px;flex-shrink:0;padding-top:7px;}
+.tool-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tool-tag{font-size:10px;font-weight:400;padding:5px 11px;border-radius:6px;border:1px solid var(--border);background:rgba(255,255,255,0.6);color:var(--text-2);}
+.tt-n8n{color:var(--n8n);border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.06);}
+.tt-openai{color:var(--openai);border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.06);}
+.tt-hubspot{color:var(--hubspot);border-color:rgba(255,122,89,0.3);background:rgba(255,122,89,0.06);}
+.tt-gdocs{color:var(--gdocs);border-color:rgba(26,115,232,0.3);background:rgba(26,115,232,0.06);}
+.tt-inter{color:var(--inter);border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06);}
 
-.connector-col {
-  display:flex; flex-direction:column; align-items:center;
-  width:44px; flex-shrink:0; padding-top:18px;
-}
-.step-num {
-  width:34px; height:34px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:500;
-  border:1.5px solid; background:var(--bg);
-  position:relative; z-index:2;
-}
-.step-num.orange { color:var(--mkt);   border-color:rgba(232,93,4,0.4); }
-.step-num.blue   { color:var(--inter); border-color:rgba(124,58,237,0.4); }
-.step-num.cyan   { color:var(--tech);  border-color:rgba(0,119,182,0.4); }
-.step-num.green  { color:var(--green); border-color:rgba(22,101,52,0.4); }
-.step-num.hs     { color:var(--mkt);   border-color:rgba(232,93,4,0.35); }
-.step-num.warn   { color:var(--warn);  border-color:rgba(180,83,9,0.4); }
+/* BEFORE/AFTER */
+.ba-card{border-radius:14px;padding:22px;backdrop-filter:blur(6px);opacity:0;animation:fadeUp 0.5s ease forwards;}
+.ba-card.before{background:rgba(180,83,9,0.05);border:1.5px solid rgba(180,83,9,0.2);}
+.ba-card.after{background:rgba(22,101,52,0.05);border:1.5px solid rgba(22,101,52,0.2);}
+.ba-tag{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;display:inline-block;margin-bottom:12px;}
+.ba-tag.before-t{color:var(--warn);background:rgba(180,83,9,0.1);}
+.ba-tag.after-t{color:var(--green);background:rgba(22,101,52,0.1);}
+.ba-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.ba-list{display:flex;flex-direction:column;gap:7px;}
+.ba-item{font-size:12px;font-weight:300;color:var(--text-2);display:flex;align-items:flex-start;gap:8px;line-height:1.55;}
+.ba-item::before{content:'';flex-shrink:0;width:14px;height:14px;border-radius:50%;margin-top:1px;}
+.ba-card.before .ba-item::before{background:rgba(180,83,9,0.15);border:1px solid rgba(180,83,9,0.3);}
+.ba-card.after .ba-item::before{background:rgba(22,101,52,0.15);border:1px solid rgba(22,101,52,0.3);}
+.ba-item strong{color:var(--text);font-weight:500;}
 
-.connector-line {
-  width:1px; flex:1; min-height:20px;
-  background:linear-gradient(to bottom, var(--border) 60%, transparent);
-  margin-top:4px;
-}
+/* INSIGHT CARD */
+.ic{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
+.ic::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.ic-inter::before{background:var(--inter);}.ic-warn::before{background:var(--warn);}.ic-green::before{background:var(--green);}
+.ic-label{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.ic-label.inter{color:var(--inter);}.ic-label.warn{color:var(--warn);}.ic-label.green{color:var(--green);}
+.ic-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.ic-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.ic-desc strong{color:var(--text);font-weight:500;}
+.ic:nth-child(1){animation-delay:0.1s;}.ic:nth-child(2){animation-delay:0.2s;}.ic:nth-child(3){animation-delay:0.3s;}
 
-/* ── NODE CARD ── */
-.node {
-  flex:1; background:rgba(255,255,255,0.52);
-  border:1px solid var(--border); border-radius:12px;
-  padding:18px 22px; margin-bottom:8px;
-  position:relative; overflow:hidden;
-  transition:transform 0.15s, box-shadow 0.15s;
-  backdrop-filter:blur(6px);
-}
-.node:hover { transform:translateX(3px); box-shadow:0 6px 20px rgba(0,0,0,0.07); }
-.node::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:3px 0 0 3px; }
+/* REFLECTIONS */
+.refl-card{background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color 0.2s;opacity:0;animation:fadeUp 0.5s ease forwards;backdrop-filter:blur(6px);}
+.refl-card:hover{border-color:var(--border2);}
+.refl-icon{font-size:22px;margin-bottom:10px;}
+.refl-title{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.refl-desc{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.7;}
+.refl-card:nth-child(1){animation-delay:0.1s;}.refl-card:nth-child(2){animation-delay:0.2s;}.refl-card:nth-child(3){animation-delay:0.3s;}
 
-.node.human::before  { background:var(--mkt); }
-.node.ai::before     { background:var(--inter); }
-.node.n8n::before    { background:var(--tech); }
-.node.gdocs::before  { background:var(--green); }
-.node.hs::before     { background:var(--mkt); }
-.node.warn::before   { background:var(--warn); }
-.node.done::before   { background:var(--green); }
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;position:relative;z-index:1;background:rgba(244,239,230,0.7);}
+.footer-left{font-size:11px;font-weight:400;color:var(--text-2);}
+.footer-left strong{font-weight:700;color:var(--text);}
+.footer-right{display:flex;gap:8px;flex-wrap:wrap;}
+.fpill{font-size:9px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-3);background:rgba(255,255,255,0.48);}
 
-.node.human  { border-left-color:rgba(232,93,4,0.3); }
-.node.ai     { border-left-color:rgba(124,58,237,0.3); }
-.node.n8n    { border-left-color:rgba(0,119,182,0.3); }
-.node.gdocs  { border-left-color:rgba(22,101,52,0.3); }
-.node.hs     { border-left-color:rgba(232,93,4,0.3); }
-.node.warn   { border-left-color:rgba(180,83,9,0.3); }
-.node.done   { border-left-color:rgba(22,101,52,0.3); background:rgba(22,101,52,0.04); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-.node-header { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px; }
-.node-title  { font-size:14px; font-weight:700; line-height:1.3; color:var(--text); }
-
-.badge {
-  font-size:9px; font-weight:500;
-  padding:3px 8px; border-radius:4px;
-  letter-spacing:0.07em; white-space:nowrap; flex-shrink:0;
-  border:1px solid;
-}
-.badge-human { color:var(--mkt);   border-color:rgba(232,93,4,0.3);   background:rgba(232,93,4,0.06); }
-.badge-ai    { color:var(--inter); border-color:rgba(124,58,237,0.3); background:rgba(124,58,237,0.06); }
-.badge-n8n   { color:var(--tech);  border-color:rgba(0,119,182,0.3);  background:rgba(0,119,182,0.06); }
-.badge-gdocs { color:var(--green); border-color:rgba(22,101,52,0.3);  background:rgba(22,101,52,0.06); }
-.badge-hs    { color:var(--mkt);   border-color:rgba(232,93,4,0.3);   background:rgba(232,93,4,0.06); }
-.badge-warn  { color:var(--warn);  border-color:rgba(180,83,9,0.3);   background:rgba(180,83,9,0.06); }
-
-.node-desc { font-size:13px; font-weight:300; color:var(--text-2); line-height:1.65; margin-bottom:10px; }
-.node-desc strong { color:var(--text); font-weight:500; }
-
-.data-label {
-  font-size:9px; font-weight:500;
-  color:var(--text-4); letter-spacing:0.1em; text-transform:uppercase;
-  margin-bottom:5px; margin-top:10px;
-}
-.chips { display:flex; flex-wrap:wrap; gap:5px; }
-.chip {
-  font-size:9px; font-weight:400;
-  padding:3px 8px; border-radius:4px;
-  background:rgba(255,255,255,0.55); border:1px solid var(--border);
-  color:var(--text-3);
-}
-.chip.in   { color:var(--tech);  border-color:rgba(0,119,182,0.28);  background:rgba(0,119,182,0.06); }
-.chip.out  { color:var(--green); border-color:rgba(22,101,52,0.28);  background:rgba(22,101,52,0.06); }
-.chip.ai   { color:var(--inter); border-color:rgba(124,58,237,0.28); background:rgba(124,58,237,0.06); }
-.chip.hs   { color:var(--mkt);   border-color:rgba(232,93,4,0.28);   background:rgba(232,93,4,0.06); }
-.chip.warn { color:var(--warn);  border-color:rgba(180,83,9,0.28);   background:rgba(180,83,9,0.06); }
-
-/* ── HUMAN GATE BOX ── */
-.gate-box {
-  background:rgba(180,83,9,0.04);
-  border:1px solid rgba(180,83,9,0.2);
-  border-radius:8px; padding:12px 14px; margin-top:10px;
-  display:flex; align-items:flex-start; gap:12px;
-}
-.gate-icon  { font-size:18px; flex-shrink:0; margin-top:1px; }
-.gate-body  { flex:1; }
-.gate-title { font-size:12px; font-weight:600; color:var(--warn); margin-bottom:6px; }
-.gate-desc  { font-size:11px; font-weight:300; color:var(--text-2); line-height:1.55; margin-bottom:8px; }
-.gate-btns  { display:flex; gap:6px; flex-wrap:wrap; }
-.gate-btn {
-  font-size:9px; font-weight:500;
-  padding:3px 10px; border-radius:4px; border:1px solid;
-}
-.btn-approve { color:var(--green); border-color:rgba(22,101,52,0.35);  background:rgba(22,101,52,0.06); }
-.btn-revise  { color:var(--warn);  border-color:rgba(180,83,9,0.35);   background:rgba(180,83,9,0.06); }
-.btn-redo    { color:var(--mkt);   border-color:rgba(232,93,4,0.35);   background:rgba(232,93,4,0.06); }
-
-/* ── BRIDGE / ROLE CALLOUT ── */
-.bridge {
-  display:flex; align-items:center; gap:10px;
-  margin:4px 0 4px 58px; padding:10px 16px;
-  background:rgba(255,255,255,0.48);
-  border:1px dashed var(--border2); border-radius:8px;
-  opacity:0; animation:fadeUp 0.4s 0.5s ease forwards;
-  backdrop-filter:blur(4px);
-}
-.bridge-arrow { color:var(--tech); font-size:16px; }
-.bridge-text  { font-size:11px; font-weight:300; color:var(--text-2); line-height:1.55; }
-.bridge-text strong { color:var(--text); font-weight:500; }
-
-.role-row {
-  display:flex; gap:10px; flex-wrap:wrap;
-  margin:4px 0 4px 58px;
-  opacity:0; animation:fadeUp 0.4s 0.55s ease forwards;
-}
-.role-card {
-  flex:1; min-width:200px;
-  background:rgba(255,255,255,0.48);
-  border:1px solid var(--border); border-radius:8px;
-  padding:12px 16px; backdrop-filter:blur(4px);
-}
-.role-label { font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
-.role-label.n8n-l   { color:var(--tech); }
-.role-label.openai-l { color:var(--inter); }
-.role-desc  { font-size:11px; font-weight:300; color:var(--text-2); line-height:1.6; }
-
-/* Loop indicators */
-.loop-indicator {
-  margin:0 0 0 58px; display:flex; align-items:center; gap:8px;
-  opacity:0; animation:fadeUp 0.4s ease forwards;
-}
-.loop-line { width:1px; height:16px; }
-.loop-text { font-size:10px; font-weight:400; color:var(--text-4); }
-
-/* ── FOOTER ── */
-footer {
-  border-top:1px solid var(--border);
-  padding:26px 48px;
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:14px;
-  position:relative; z-index:1;
-  background:rgba(244,239,230,0.7);
-}
-.footer-left { font-size:11px; font-weight:400; color:var(--text-2); }
-.footer-left strong { font-weight:700; color:var(--text); }
-.footer-right { display:flex; gap:8px; flex-wrap:wrap; }
-.fpill {
-  font-size:9px; font-weight:400;
-  padding:4px 12px; border-radius:20px;
-  border:1px solid var(--border); color:var(--text-3);
-  background:rgba(255,255,255,0.48);
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  nav{padding:0 24px;}
-  .nav-links{display:none;}
-  .nav-hamburger{display:flex;}
-  .page-hero,.section{padding-left:24px;padding-right:24px;}
-  .page-hero{padding-top:100px;padding-bottom:56px;}
-  .metric-wall{grid-template-columns:repeat(2,1fr);}
-  .bridge,.role-row,.loop-indicator{margin-left:0;}
-  footer{padding:22px 24px;}
-}
-@media(max-width:560px){
-  .metric-wall{grid-template-columns:1fr 1fr;}
-}
+@media(max-width:900px){nav{padding:0 24px;}.nav-links{display:none;}.nav-hamburger{display:flex;}.page-hero,.section{padding-left:24px;padding-right:24px;}.page-hero{padding-top:100px;padding-bottom:56px;}.two-grid,.three-grid{grid-template-columns:1fr;}footer{padding:22px 24px;}}
+@media(max-width:560px){.stats-row{flex-wrap:wrap;}.stat-item{min-width:50%;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="../index.html"><div class="nav-logo-dot"></div>Khai Tran</a>
   <div class="nav-links">
     <a href="../index.html#featured">Projects</a>
-    <a href="../index.html#analytics">Analytics & BI</a>
-    <a href="../index.html#automation">AI & Automation</a>
+    <a href="../index.html#automation">AI &amp; Automation</a>
+    <a href="../index.html#analytics">Analytics &amp; BI</a>
   </div>
   <a class="nav-back" href="../index.html">Portfolio</a>
   <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -436,316 +169,326 @@ footer {
 
 <!-- HERO -->
 <div class="page-hero">
-  <div class="blob-wrap">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
+  <div class="blob-wrap"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
   <div class="hero-inner">
+    <div class="context-pill"><span>AI Automation &middot; Hue Beauty Commerce Startup &middot; 2025</span></div>
+    <div class="hero-eyebrow">Workflow Automation &middot; Prompt Engineering &middot; CRM Integration</div>
+    <h1 class="hero-title">Brand Onboarding<br><span class="accent">Automation</span></h1>
+    <div class="hero-subtitle">From 2-hour manual doc creation to under 20 minutes &mdash; built twice, for two different reasons</div>
 
-    <div class="hero-eyebrow">AI Automation · CRM · n8n · Build Project 2024</div>
-    <h1 class="hero-title">Brand Onboarding <span>Automation</span></h1>
-    <div class="hero-subtitle">Human + Custom ChatGPT (OpenAI API) → n8n orchestration → Google Docs output</div>
-
-    <div class="outcome-badge">
-      <div class="outcome-icon">⚡</div>
-      <div>
-        <div class="outcome-title">2 hours → 20 minutes · Triggered in under 5 clicks</div>
-        <div class="outcome-sub">Human-in-the-loop · Zero manual doc creation · Repeatable at any scale</div>
-      </div>
+    <div class="honest-framing">
+      <p>Built the full automation first &mdash; <strong>n8n + OpenAI API</strong>, wired to HubSpot and Google Docs. It worked. API costs were prohibitive for a seed-stage startup, so rebuilt as a <strong>Custom GPT</strong> with knowledge base and GPT Actions &mdash; preserving AI output quality while removing per-token cost. Both approaches cut a 2-hour manual process to under 20 minutes. The two-phase story is the point: architectural decisions under real constraints.</p>
     </div>
 
-    <p class="hero-desc">Built at Hue (beauty eCommerce startup). Eliminated manual brand onboarding documentation by wiring <strong>Custom ChatGPT + n8n</strong> — the moment a new account is created, the workflow fetches the client's website, extracts brand elements, fills a structured template, and writes the completed Google Doc back to HubSpot. <strong>Human always in the loop</strong> — approving, revising, or triggering a redo at any stage.</p>
-
-    <div class="metric-wall">
-      <div class="mw-item"><div class="mw-val">&lt;5</div><div class="mw-lbl">Clicks to trigger</div></div>
-      <div class="mw-item"><div class="mw-val">70%</div><div class="mw-lbl">Time reduction</div></div>
-      <div class="mw-item"><div class="mw-val neutral">20 min</div><div class="mw-lbl">vs 2hr manual</div></div>
-      <div class="mw-item"><div class="mw-val inter">8</div><div class="mw-lbl">Workflow phases</div></div>
+    <div class="meta-row">
+      <span class="mpill n8n">n8n</span>
+      <span class="mpill openai">OpenAI API</span>
+      <span class="mpill openai">Custom GPT</span>
+      <span class="mpill mkt">HubSpot CRM</span>
+      <span class="mpill" style="color:var(--gdocs);border-color:rgba(26,115,232,0.3);background:rgba(26,115,232,0.06);">Google Docs API</span>
+      <span class="mpill inter">Prompt Engineering</span>
     </div>
 
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-val inter">70%</div><div class="stat-lbl">Time Reduction</div></div>
+      <div class="stat-item"><div class="stat-val n8n">20 min</div><div class="stat-lbl">vs 2hr Manual</div></div>
+      <div class="stat-item"><div class="stat-val" style="color:var(--positive);">250+</div><div class="stat-lbl">Data Inputs Trained</div></div>
+      <div class="stat-item"><div class="stat-val warn">2</div><div class="stat-lbl">Architectures Built</div></div>
+    </div>
   </div>
 </div>
 
-<!-- WORKFLOW ARCHITECTURE -->
+<!-- PHASE 1 — N8N + API -->
 <div class="section">
-  <div class="section-header">
-    <div class="section-header-accent acc-inter"></div>
-    <div class="section-header-label">Workflow Architecture</div>
-    <div class="section-header-sub">Human-in-the-loop · 5 phases · 8 steps</div>
-    <div class="section-header-line"></div>
+  <div class="section-header"><div class="sha sha-n8n"></div><div class="section-header-label">Phase 1 &mdash; The Full Automation</div><div class="section-header-sub">n8n + OpenAI API &middot; HubSpot &middot; Google Docs</div><div class="section-header-line"></div></div>
+
+  <p class="context-note">The original build: a fully autonomous n8n workflow triggered from HubSpot, calling the OpenAI API to generate brand onboarding documents, and writing the output back to Google Docs and HubSpot. <strong>No human needed at execution time</strong> — only at review. Shut down when API token costs became unsustainable for a seed-stage startup with low usage volume.</p>
+
+  <!-- Phase 1 Flowchart — SVG inline -->
+  <div class="flow-wrap" style="margin-bottom:20px;">
+    <div class="flow-title">&#9654; Phase 1 Architecture &mdash; n8n Orchestration + OpenAI API + HubSpot + Google Docs</div>
+    <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;display:block;margin:0 auto;font-family:'Google Sans Code',monospace;">
+      <defs>
+        <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#adb5bd"/></marker>
+        <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#06b6d4"/></marker>
+        <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#166534"/></marker>
+        <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e85d04"/></marker>
+      </defs>
+
+      <!-- TRIGGER: HubSpot New Company -->
+      <rect x="20" y="30" width="148" height="56" rx="8" fill="rgba(255,122,89,0.1)" stroke="#ff7a59" stroke-width="1.5"/>
+      <text x="94" y="52" text-anchor="middle" font-size="9" font-weight="600" fill="#ff7a59">TRIGGER</text>
+      <text x="94" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">HubSpot</text>
+      <text x="94" y="78" text-anchor="middle" font-size="9" fill="#6e6e73">New company created</text>
+
+      <!-- Arrow right -->
+      <line x1="168" y1="58" x2="204" y2="58" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+      <!-- N8N ROUTER -->
+      <rect x="206" y="22" width="148" height="72" rx="8" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-width="1.5"/>
+      <text x="280" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="#06b6d4">n8n NODE</text>
+      <text x="280" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Input Router</text>
+      <text x="280" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Merge &amp; normalise fields</text>
+      <text x="280" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">Check PDF upload</text>
+
+      <!-- Arrow right -->
+      <line x1="354" y1="58" x2="390" y2="58" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-cyan)"/>
+
+      <!-- OPENAI API -->
+      <rect x="392" y="22" width="148" height="72" rx="8" fill="rgba(16,163,127,0.08)" stroke="#10a37f" stroke-width="1.5"/>
+      <text x="466" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="#10a37f">OPENAI API</text>
+      <text x="466" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">gpt-4 / gpt-4o</text>
+      <text x="466" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Prompt template</text>
+      <text x="466" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">+ brand data inputs</text>
+
+      <!-- Arrow right -->
+      <line x1="540" y1="58" x2="576" y2="58" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-cyan)"/>
+
+      <!-- HUMAN REVIEW -->
+      <rect x="578" y="22" width="148" height="72" rx="8" fill="rgba(180,83,9,0.07)" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="652" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="#b45309">&#9646; HUMAN GATE</text>
+      <text x="652" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Review Draft</text>
+      <text x="652" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Email / Slack notify</text>
+      <text x="652" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">Approve or revise</text>
+
+      <!-- Arrow right -->
+      <line x1="726" y1="58" x2="762" y2="58" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+      <!-- GOOGLE DOCS -->
+      <rect x="764" y="30" width="116" height="56" rx="8" fill="rgba(26,115,232,0.08)" stroke="#1a73e8" stroke-width="1.5"/>
+      <text x="822" y="52" text-anchor="middle" font-size="9" font-weight="600" fill="#1a73e8">OUTPUT</text>
+      <text x="822" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Google Docs</text>
+      <text x="822" y="78" text-anchor="middle" font-size="9" fill="#6e6e73">Doc created + filed</text>
+
+      <!-- REVISION LOOP — arrow back from human to openai -->
+      <path d="M 652,94 Q 652,130 540,130 Q 428,130 466,94" fill="none" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-orange)"/>
+      <text x="554" y="145" text-anchor="middle" font-size="9" fill="#b45309">revision loop</text>
+
+      <!-- HUBSPOT UPDATE below Google Docs -->
+      <rect x="764" y="130" width="116" height="52" rx="8" fill="rgba(255,122,89,0.1)" stroke="#ff7a59" stroke-width="1.5"/>
+      <text x="822" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#ff7a59">CRM UPDATE</text>
+      <text x="822" y="166" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">HubSpot</text>
+      <text x="822" y="178" text-anchor="middle" font-size="9" fill="#6e6e73">Write doc URL back</text>
+
+      <!-- Arrow from Google Docs down to HubSpot update -->
+      <line x1="822" y1="86" x2="822" y2="130" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
+
+      <!-- COST CALLOUT -->
+      <rect x="20" y="170" width="530" height="58" rx="8" fill="rgba(180,83,9,0.05)" stroke="rgba(180,83,9,0.25)" stroke-width="1.2" stroke-dasharray="5,3"/>
+      <text x="285" y="192" text-anchor="middle" font-size="9" font-weight="600" fill="#b45309">&#9888; WHY IT WAS SHUT DOWN</text>
+      <text x="285" y="208" text-anchor="middle" font-size="10" fill="#3a3a3c">OpenAI API charges per token. At low usage volume (seed-stage startup), cost-per-run exceeded the value of automation.</text>
+      <text x="285" y="222" text-anchor="middle" font-size="9" fill="#6e6e73">n8n itself is free (self-hosted). The bottleneck was API billing — not the orchestration layer.</text>
+
+      <!-- INPUTS: PDF, URL, Category (below n8n router) -->
+      <text x="280" y="128" text-anchor="middle" font-size="9" fill="#6e6e73">Inputs: brand PDF &bull; website URL &bull; category examples &bull; 250+ data points</text>
+      <line x1="280" y1="94" x2="280" y2="120" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,2"/>
+
+      <!-- FLOW LABELS -->
+      <text x="185" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">trigger</text>
+      <text x="373" y="50" text-anchor="middle" font-size="8" fill="#06b6d4">API call</text>
+      <text x="559" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">notify</text>
+      <text x="745" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">write</text>
+    </svg>
   </div>
 
-  <!-- Legend -->
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--mkt)"></div>Human Action</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--inter)"></div>ChatGPT / OpenAI Node</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--tech)"></div>n8n Automation</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Google Docs Output</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--mkt)"></div>HubSpot CRM</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--warn)"></div>Human Review / Intervention</div>
-  </div>
-
-  <!-- PHASE 1 -->
-  <div class="divider"><div class="divider-line"></div><div class="divider-text">Phase 1 — Input & Account Information</div><div class="divider-line"></div></div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num orange">01</div><div class="connector-line"></div></div>
-    <div class="node human">
-      <div class="node-header">
-        <div class="node-title">Human: Prompt Custom ChatGPT with New Account Info</div>
-        <span class="badge badge-human">HUMAN</span>
-      </div>
-      <div class="node-desc">The user opens the custom ChatGPT (configured with a system prompt and standardised template skeleton). They paste or enter new account information — either pulled from HubSpot or entered manually.</div>
-      <div class="data-label">Two input paths</div>
-      <div class="chips">
-        <span class="chip hs">HubSpot: retrieve company record</span>
-        <span class="chip in">Manual input: company name, URL, industry</span>
-      </div>
-      <div class="data-label">Information provided</div>
-      <div class="chips">
-        <span class="chip">Company name</span>
-        <span class="chip">Website URL</span>
-        <span class="chip">Industry / category</span>
-        <span class="chip">Brand guidelines (if available)</span>
-        <span class="chip">Key contacts</span>
+  <!-- Phase 1 tool stack -->
+  <div class="two-grid">
+    <div class="tool-section">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-4);margin-bottom:14px;">Phase 1 Stack</div>
+      <div class="tool-row"><div class="tool-layer">Orchestration</div><div class="tool-tags"><span class="tool-tag tt-n8n">n8n (self-hosted)</span><span class="tool-tag tt-n8n">Webhook trigger</span><span class="tool-tag tt-n8n">HTTP Request node</span></div></div>
+      <div class="tool-row"><div class="tool-layer">AI Model</div><div class="tool-tags"><span class="tool-tag tt-openai">OpenAI API</span><span class="tool-tag tt-openai">gpt-4 / gpt-4o</span><span class="tool-tag tt-openai">Chat Completions endpoint</span></div></div>
+      <div class="tool-row"><div class="tool-layer">CRM</div><div class="tool-tags"><span class="tool-tag tt-hubspot">HubSpot (trigger source)</span><span class="tool-tag tt-hubspot">Company record update</span></div></div>
+      <div class="tool-row"><div class="tool-layer">Output</div><div class="tool-tags"><span class="tool-tag tt-gdocs">Google Docs API</span><span class="tool-tag tt-gdocs">Template-based doc creation</span></div></div>
+      <div class="tool-row"><div class="tool-layer">Execution</div><div class="tool-tags"><span class="tool-tag">Fully autonomous</span><span class="tool-tag">Human review gate only</span></div></div>
+    </div>
+    <div class="ba-card before" style="animation-delay:0.12s;">
+      <span class="ba-tag before-t">Why it stopped</span>
+      <div class="ba-title">Cost architecture didn't fit the usage pattern</div>
+      <div class="ba-list">
+        <div class="ba-item"><strong>OpenAI API charges per token</strong> &mdash; every run costs real money regardless of output value</div>
+        <div class="ba-item"><strong>Seed-stage startup</strong> = low run volume &mdash; cost-per-doc was too high to justify vs. manual</div>
+        <div class="ba-item"><strong>n8n itself is free</strong> (self-hosted) &mdash; the orchestration layer wasn't the problem</div>
+        <div class="ba-item"><strong>Decision:</strong> keep the workflow logic, replace the API layer with a no-cost alternative</div>
       </div>
     </div>
   </div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num blue">02</div><div class="connector-line"></div></div>
-    <div class="node ai">
-      <div class="node-header">
-        <div class="node-title">ChatGPT: Confirm Information Receipt & Surface Gaps</div>
-        <span class="badge badge-ai">CHATGPT</span>
-      </div>
-      <div class="node-desc">ChatGPT acknowledges receipt, summarises what it understood, and flags any missing fields needed to complete the template. Human can correct or supplement before proceeding.</div>
-      <div class="data-label">ChatGPT output</div>
-      <div class="chips">
-        <span class="chip ai">Parsed account summary</span>
-        <span class="chip ai">Missing field prompts (if any)</span>
-        <span class="chip ai">"Ready to proceed?" confirmation</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PHASE 2 -->
-  <div class="divider"><div class="divider-line"></div><div class="divider-text">Phase 2 — Template Confirmation & Human Approval</div><div class="divider-line"></div></div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num warn">03</div><div class="connector-line"></div></div>
-    <div class="node warn">
-      <div class="node-header">
-        <div class="node-title">Human: Confirm Template Skeleton & Approve to Proceed</div>
-        <span class="badge badge-warn">HUMAN GATE</span>
-      </div>
-      <div class="node-desc">Human reviews the template structure — section headers, required fields, placeholder logic — and confirms everything is correct before handing off to n8n. This is the primary quality gate.</div>
-      <div class="gate-box">
-        <div class="gate-icon">⏸</div>
-        <div class="gate-body">
-          <div class="gate-title">Workflow pauses until human confirms</div>
-          <div class="gate-desc">Human checks: Are all template sections correct? Are field requirements right? Once satisfied, they reply to ChatGPT to trigger n8n execution.</div>
-          <div class="gate-btns">
-            <span class="gate-btn btn-approve">✓ Looks good — proceed</span>
-            <span class="gate-btn btn-revise">✎ Adjust section X</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bridge -->
-  <div class="bridge">
-    <div class="bridge-arrow">⟶</div>
-    <div class="bridge-text">
-      <strong>OpenAI Node (API key) ↔ n8n connection</strong><br>
-      On human approval, n8n is triggered. <strong>n8n does the fetching & executing. OpenAI does the reading & writing.</strong> They hand data back and forth — each doing only what they're best at.
-    </div>
-  </div>
-
-  <!-- Role clarity cards -->
-  <div class="role-row">
-    <div class="role-card">
-      <div class="role-label n8n-l">n8n is best at</div>
-      <div class="role-desc">Triggering · Fetching URLs · Moving data between systems · Creating Docs · Writing to HubSpot · Reliable, repeatable execution</div>
-    </div>
-    <div class="role-card">
-      <div class="role-label openai-l">OpenAI is best at</div>
-      <div class="role-desc">Reading unstructured content · Understanding brand tone · Generating coherent prose · Filling template sections intelligently</div>
-    </div>
-  </div>
-
-  <!-- PHASE 3 -->
-  <div class="divider"><div class="divider-line"></div><div class="divider-text">Phase 3 — n8n ↔ OpenAI Execution Loop</div><div class="divider-line"></div></div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num cyan">04</div><div class="connector-line"></div></div>
-    <div class="node n8n">
-      <div class="node-header">
-        <div class="node-title">n8n: Fetch Website → Pass Raw Content to OpenAI</div>
-        <span class="badge badge-n8n">n8n · HTTP REQUEST</span>
-      </div>
-      <div class="node-desc">n8n uses the HTTP Request node to fetch the client's website. It retrieves the raw HTML/text content — then immediately passes it as input to the OpenAI node. <strong>n8n does not interpret this content.</strong> That is OpenAI's job.</div>
-      <div class="data-label">n8n inputs</div>
-      <div class="chips">
-        <span class="chip in">Website URL</span>
-        <span class="chip in">Account data from Step 01</span>
-        <span class="chip in">Template skeleton from Step 03</span>
-      </div>
-      <div class="data-label">n8n passes to OpenAI →</div>
-      <div class="chips">
-        <span class="chip out">Raw website HTML / text</span>
-        <span class="chip out">Template section map</span>
-        <span class="chip out">Brand guidelines (if PDF provided)</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="loop-indicator" style="animation-delay:0.6s;">
-    <div class="loop-line" style="background:linear-gradient(to bottom,var(--tech),var(--inter));"></div>
-    <div class="loop-text">raw content passed to OpenAI →</div>
-  </div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num blue">05</div><div class="connector-line"></div></div>
-    <div class="node ai">
-      <div class="node-header">
-        <div class="node-title">OpenAI Node: Read Content → Fill Template Sections → Return to n8n</div>
-        <span class="badge badge-ai">OPENAI NODE</span>
-      </div>
-      <div class="node-desc">OpenAI receives the raw website content from n8n. <strong>This is where intelligence happens.</strong> It reads the unstructured content, understands brand tone, extracts relevant information, and generates polished prose for each template section. It returns structured, filled content back to n8n.</div>
-      <div class="data-label">OpenAI reads (from n8n)</div>
-      <div class="chips">
-        <span class="chip in">Raw website text</span>
-        <span class="chip in">Template skeleton with placeholders</span>
-        <span class="chip in">Brand guidelines PDF content (if any)</span>
-      </div>
-      <div class="data-label">OpenAI generates</div>
-      <div class="chips">
-        <span class="chip ai">Brand colours, fonts, tone of voice</span>
-        <span class="chip ai">Company overview & profile prose</span>
-        <span class="chip ai">Onboarding checklist content</span>
-        <span class="chip ai">Working guidelines & brand rules</span>
-      </div>
-      <div class="data-label">OpenAI returns to n8n →</div>
-      <div class="chips">
-        <span class="chip out">Filled content per template section</span>
-        <span class="chip out">Structured JSON: placeholder → value</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="loop-indicator" style="animation-delay:0.65s;">
-    <div class="loop-line" style="background:linear-gradient(to bottom,var(--inter),var(--tech));"></div>
-    <div class="loop-text">← filled content returned to n8n</div>
-  </div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num cyan">06</div><div class="connector-line"></div></div>
-    <div class="node n8n">
-      <div class="node-header">
-        <div class="node-title">n8n: Substitute Placeholders → Create Google Doc</div>
-        <span class="badge badge-n8n">n8n · GOOGLE DOCS</span>
-      </div>
-      <div class="node-desc">n8n receives OpenAI's filled content and does what it's best at: <strong>reliable, mechanical execution.</strong> It copies the master Google Docs template, substitutes each placeholder (<code style="font-size:11px;color:var(--tech)">{{company_name}}</code>, <code style="font-size:11px;color:var(--tech)">{{brand_colours}}</code>) with OpenAI's values, and stores the completed document. No intelligence required — just precision.</div>
-      <div class="data-label">n8n does (mechanical only)</div>
-      <div class="chips">
-        <span class="chip in">Copy master template</span>
-        <span class="chip in">Find & replace each placeholder with OpenAI value</span>
-        <span class="chip in">Save to client Drive folder</span>
-      </div>
-      <div class="data-label">Output</div>
-      <div class="chips">
-        <span class="chip out">Completed Google Doc</span>
-        <span class="chip out">Shareable Doc URL</span>
-        <span class="chip out">Stored in Drive folder</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PHASE 4 -->
-  <div class="divider"><div class="divider-line"></div><div class="divider-text">Phase 4 — Human Review & Intervention (Ongoing)</div><div class="divider-line"></div></div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num warn">07</div><div class="connector-line"></div></div>
-    <div class="node warn">
-      <div class="node-header">
-        <div class="node-title">Human: Review Output — Modify, Redo, or Approve</div>
-        <span class="badge badge-warn">HUMAN REVIEW</span>
-      </div>
-      <div class="node-desc">The human opens the Google Doc and reviews the output. At any point they can intervene — editing directly, or returning to ChatGPT with specific feedback to regenerate any section. There is no limit on revision rounds.</div>
-      <div class="gate-box">
-        <div class="gate-icon">👤</div>
-        <div class="gate-body">
-          <div class="gate-title">Human can always intervene to ensure quality</div>
-          <div class="gate-desc">Review the doc → identify any section that needs improvement → prompt ChatGPT with specific feedback → ChatGPT redrafts → n8n updates the doc. Loop until satisfied.</div>
-          <div class="gate-btns">
-            <span class="gate-btn btn-approve">✓ Approved — finalise</span>
-            <span class="gate-btn btn-revise">✎ Revise section</span>
-            <span class="gate-btn btn-redo">↺ Redo from Step 04</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PHASE 5 -->
-  <div class="divider"><div class="divider-line"></div><div class="divider-text">Phase 5 — Final Output & CRM Return</div><div class="divider-line"></div></div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num hs">08</div><div class="connector-line"></div></div>
-    <div class="node hs">
-      <div class="node-header">
-        <div class="node-title">n8n: Write Doc Link Back to HubSpot</div>
-        <span class="badge badge-hs">n8n · HUBSPOT</span>
-      </div>
-      <div class="node-desc">n8n writes the finalised Google Doc URL to the HubSpot company record as a custom property. Status is updated. Account owner is notified.</div>
-      <div class="data-label">Written to HubSpot</div>
-      <div class="chips">
-        <span class="chip hs">Onboarding Doc URL</span>
-        <span class="chip hs">Status: Onboarding Complete</span>
-        <span class="chip hs">Completion timestamp</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="node-row">
-    <div class="connector-col"><div class="step-num green">✓</div></div>
-    <div class="node done">
-      <div class="node-header">
-        <div class="node-title" style="color:var(--green)">✅ Complete — Branded Onboarding Doc Delivered</div>
-      </div>
-      <div class="node-desc">A fully structured, human-approved, brand-aligned onboarding document — generated with fewer than 5 clicks to trigger, reviewed and approved by a human, stored in Drive and linked in HubSpot.</div>
-      <div class="chips" style="margin-top:6px">
-        <span class="chip out">~60 sec generation time</span>
-        <span class="chip out">Human-in-the-loop quality control</span>
-        <span class="chip out">Repeatable at any scale</span>
-        <span class="chip out">Zero manual doc creation</span>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    <strong>Khai Tran</strong> · Brand Onboarding Automation · Hue Startup · 2024
+<!-- PHASE 2 — CUSTOM GPT -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-openai"></div><div class="section-header-label">Phase 2 &mdash; The Rebuild</div><div class="section-header-sub">Custom GPT + GPT Actions &middot; no per-token cost</div><div class="section-header-line"></div></div>
+
+  <p class="context-note">Rebuilt as a <strong>Custom GPT</strong> inside ChatGPT (Plus/Business plan) &mdash; trained on 250+ structured brand data inputs, with a detailed system prompt encoding the onboarding template logic. GPT Actions wired to HubSpot and Google Docs for output delivery. The tradeoff: <strong>a human must initiate each session</strong> inside ChatGPT. No background scheduling. No autonomous trigger. The AI does the heavy generation work; the operator navigates the conversation.</p>
+
+  <!-- Phase 2 Flowchart -->
+  <div class="flow-wrap" style="margin-bottom:20px;">
+    <div class="flow-title">&#9654; Phase 2 Architecture &mdash; Custom GPT (ChatGPT interface) + GPT Actions + Google Docs</div>
+    <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;display:block;margin:0 auto;font-family:'Google Sans Code',monospace;">
+      <defs>
+        <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#adb5bd"/></marker>
+        <marker id="arr-green2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#10a37f"/></marker>
+        <marker id="arr-gdocs" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1a73e8"/></marker>
+      </defs>
+
+      <!-- HUMAN INITIATES -->
+      <rect x="20" y="30" width="140" height="62" rx="8" fill="rgba(180,83,9,0.07)" stroke="#b45309" stroke-width="1.5"/>
+      <text x="90" y="52" text-anchor="middle" font-size="9" font-weight="600" fill="#b45309">HUMAN</text>
+      <text x="90" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Operator Opens</text>
+      <text x="90" y="79" text-anchor="middle" font-size="9" fill="#6e6e73">Custom GPT in</text>
+      <text x="90" y="90" text-anchor="middle" font-size="9" fill="#6e6e73">ChatGPT interface</text>
+
+      <!-- Arrow -->
+      <line x1="160" y1="61" x2="196" y2="61" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <text x="178" y="54" text-anchor="middle" font-size="8" fill="#aeaeb2">opens</text>
+
+      <!-- CUSTOM GPT — big box -->
+      <rect x="198" y="14" width="200" height="240" rx="10" fill="rgba(16,163,127,0.06)" stroke="#10a37f" stroke-width="1.5"/>
+      <text x="298" y="34" text-anchor="middle" font-size="9" font-weight="600" fill="#10a37f">CUSTOM GPT</text>
+      <text x="298" y="48" text-anchor="middle" font-size="11" font-weight="700" fill="#1d1d1f">Hue Brand Onboarding</text>
+
+      <!-- Inside the custom GPT box -->
+      <rect x="212" y="56" width="172" height="38" rx="5" fill="rgba(16,163,127,0.1)" stroke="rgba(16,163,127,0.3)" stroke-width="1"/>
+      <text x="298" y="71" text-anchor="middle" font-size="9" font-weight="600" fill="#10a37f">System Prompt</text>
+      <text x="298" y="84" text-anchor="middle" font-size="8.5" fill="#3a3a3c">Onboarding template logic baked in</text>
+
+      <rect x="212" y="104" width="172" height="38" rx="5" fill="rgba(16,163,127,0.1)" stroke="rgba(16,163,127,0.3)" stroke-width="1"/>
+      <text x="298" y="119" text-anchor="middle" font-size="9" font-weight="600" fill="#10a37f">Knowledge Base</text>
+      <text x="298" y="132" text-anchor="middle" font-size="8.5" fill="#3a3a3c">250+ brand data inputs uploaded</text>
+
+      <rect x="212" y="152" width="172" height="38" rx="5" fill="rgba(16,163,127,0.1)" stroke="rgba(16,163,127,0.3)" stroke-width="1"/>
+      <text x="298" y="167" text-anchor="middle" font-size="9" font-weight="600" fill="#10a37f">GPT Actions</text>
+      <text x="298" y="180" text-anchor="middle" font-size="8.5" fill="#3a3a3c">Wired to external APIs via OpenAPI spec</text>
+
+      <rect x="212" y="200" width="172" height="38" rx="5" fill="rgba(124,58,237,0.08)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+      <text x="298" y="215" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">Model</text>
+      <text x="298" y="228" text-anchor="middle" font-size="8.5" fill="#3a3a3c">GPT-4o (no per-token billing to user)</text>
+
+      <!-- Arrow right from GPT Actions -->
+      <line x1="398" y1="171" x2="434" y2="171" stroke="#10a37f" stroke-width="1.5" marker-end="url(#arr-green2)"/>
+      <text x="416" y="163" text-anchor="middle" font-size="8" fill="#10a37f">action call</text>
+
+      <!-- EXTERNAL APIs box -->
+      <rect x="436" y="100" width="148" height="148" rx="10" fill="rgba(255,255,255,0.7)" stroke="var(--border2)" stroke-width="1.2"/>
+      <text x="510" y="120" text-anchor="middle" font-size="9" font-weight="600" fill="#6e6e73">EXTERNAL APIS</text>
+
+      <!-- HubSpot inside -->
+      <rect x="452" y="130" width="116" height="40" rx="6" fill="rgba(255,122,89,0.09)" stroke="#ff7a59" stroke-width="1.2"/>
+      <text x="510" y="147" text-anchor="middle" font-size="9" font-weight="600" fill="#ff7a59">HubSpot</text>
+      <text x="510" y="160" text-anchor="middle" font-size="8.5" fill="#6e6e73">Read company data</text>
+
+      <!-- Google Docs inside -->
+      <rect x="452" y="180" width="116" height="40" rx="6" fill="rgba(26,115,232,0.09)" stroke="#1a73e8" stroke-width="1.2"/>
+      <text x="510" y="197" text-anchor="middle" font-size="9" font-weight="600" fill="#1a73e8">Google Docs API</text>
+      <text x="510" y="210" text-anchor="middle" font-size="8.5" fill="#6e6e73">Write onboarding doc</text>
+
+      <!-- Arrow to output -->
+      <line x1="584" y1="200" x2="628" y2="200" stroke="#1a73e8" stroke-width="1.5" marker-end="url(#arr-gdocs)"/>
+
+      <!-- OUTPUT -->
+      <rect x="630" y="170" width="130" height="60" rx="8" fill="rgba(26,115,232,0.08)" stroke="#1a73e8" stroke-width="1.5"/>
+      <text x="695" y="192" text-anchor="middle" font-size="9" font-weight="600" fill="#1a73e8">OUTPUT</text>
+      <text x="695" y="206" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Onboarding Doc</text>
+      <text x="695" y="218" text-anchor="middle" font-size="9" fill="#6e6e73">Written to Drive</text>
+
+      <!-- CONVERSATION LOOP — operator iterates -->
+      <path d="M 298,254 Q 298,290 140,290 Q 40,290 90,92" fill="none" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
+      <text x="175" y="305" text-anchor="middle" font-size="9" fill="#b45309">conversation loop &mdash; operator guides, refines, approves</text>
+
+      <!-- KEY CONSTRAINT callout -->
+      <rect x="630" y="50" width="250" height="100" rx="8" fill="rgba(180,83,9,0.05)" stroke="rgba(180,83,9,0.2)" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="755" y="70" text-anchor="middle" font-size="9" font-weight="600" fill="#b45309">&#9888; KEY CONSTRAINT</text>
+      <text x="755" y="86" text-anchor="middle" font-size="9" fill="#3a3a3c">Human must open ChatGPT</text>
+      <text x="755" y="100" text-anchor="middle" font-size="9" fill="#3a3a3c">and initiate each session.</text>
+      <text x="755" y="114" text-anchor="middle" font-size="9" fill="#6e6e73">No background scheduling.</text>
+      <text x="755" y="128" text-anchor="middle" font-size="9" fill="#6e6e73">No autonomous trigger.</text>
+
+      <!-- Arrow from constraint box to GPT -->
+      <line x1="755" y1="150" x2="755" y2="175" stroke="rgba(180,83,9,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+    </svg>
   </div>
+
+  <!-- Phase 2 tool stack + tradeoff -->
+  <div class="two-grid">
+    <div class="tool-section" style="animation-delay:0.1s;">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-4);margin-bottom:14px;">Phase 2 Stack</div>
+      <div class="tool-row"><div class="tool-layer">Interface</div><div class="tool-tags"><span class="tool-tag" style="color:var(--openai);border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.06);">ChatGPT (Plus/Business)</span><span class="tool-tag" style="color:var(--openai);border-color:rgba(16,163,127,0.3);background:rgba(16,163,127,0.06);">Custom GPT Builder</span></div></div>
+      <div class="tool-row"><div class="tool-layer">AI Model</div><div class="tool-tags"><span class="tool-tag tt-openai">GPT-4o (via ChatGPT plan)</span><span class="tool-tag">No per-token billing</span></div></div>
+      <div class="tool-row"><div class="tool-layer">Knowledge</div><div class="tool-tags"><span class="tool-tag tt-inter">250+ structured data inputs</span><span class="tool-tag tt-inter">System prompt template</span><span class="tool-tag tt-inter">Iterative prompt tuning</span></div></div>
+      <div class="tool-row"><div class="tool-layer">Actions</div><div class="tool-tags"><span class="tool-tag tt-hubspot">HubSpot (read)</span><span class="tool-tag tt-gdocs">Google Docs API (write)</span><span class="tool-tag">OpenAPI schema</span></div></div>
+      <div class="tool-row"><div class="tool-layer">Execution</div><div class="tool-tags"><span class="tool-tag" style="color:var(--warn);border-color:rgba(180,83,9,0.3);">Human-initiated session</span><span class="tool-tag">Conversational loop</span></div></div>
+    </div>
+    <div class="ba-card after" style="animation-delay:0.12s;">
+      <span class="ba-tag after-t">What it solved &amp; what it traded</span>
+      <div class="ba-title">AI quality preserved. Autonomy reduced.</div>
+      <div class="ba-list">
+        <div class="ba-item"><strong>Eliminated API cost</strong> &mdash; ChatGPT Business plan is flat-rate per seat, not per token</div>
+        <div class="ba-item"><strong>Same output quality</strong> &mdash; GPT-4o under the hood, same model as Phase 1</div>
+        <div class="ba-item"><strong>Knowledge base</strong> &mdash; 250+ data points baked in vs. injected at runtime</div>
+        <div class="ba-item"><strong>Human required at start</strong> &mdash; no trigger, no scheduling, operator opens the GPT</div>
+        <div class="ba-item"><strong>Still cuts 70% of time</strong> &mdash; AI does the generation, human does the navigation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIDE BY SIDE COMPARISON -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-warn"></div><div class="section-header-label">Architecture Comparison</div><div class="section-header-sub">The tradeoff made explicit</div><div class="section-header-line"></div></div>
+
+  <div style="background:rgba(255,255,255,0.55);border:1px solid var(--border);border-radius:14px;overflow:hidden;backdrop-filter:blur(6px);opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="background:rgba(0,0,0,0.03);padding:12px 16px;font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);text-align:left;border-bottom:1px solid var(--border);">Dimension</th>
+          <th style="background:rgba(6,182,212,0.06);padding:12px 16px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--n8n);text-align:left;border-bottom:1px solid var(--border);">&#9312; n8n + OpenAI API</th>
+          <th style="background:rgba(16,163,127,0.06);padding:12px 16px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--openai);text-align:left;border-bottom:1px solid var(--border);">&#9313; Custom GPT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">Trigger</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">Autonomous — HubSpot webhook fires n8n</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">Human opens ChatGPT and starts session</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">AI layer</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">OpenAI API — billed per token per call</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">GPT-4o via ChatGPT plan — flat-rate seat cost</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">Cost model</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--mkt);border-bottom:1px solid var(--border);">Variable — high at low volume ❌</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--green);border-bottom:1px solid var(--border);">Fixed monthly seat cost ✓</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">Human involvement</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--green);border-bottom:1px solid var(--border);">Review gate only — rest is autonomous ✓</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--warn);border-bottom:1px solid var(--border);">Must initiate + guide every session ⚠</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">Scalability</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--green);border-bottom:1px solid var(--border);">Unlimited concurrent runs ✓</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--warn);border-bottom:1px solid var(--border);">One conversation at a time ⚠</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border);">Output quality</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">Consistent — templated prompt every run</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--text-2);border-bottom:1px solid var(--border);">Consistent — knowledge base + system prompt</td></tr>
+        <tr><td style="padding:11px 16px;font-size:12px;font-weight:500;color:var(--text);">Time reduction</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--green);">~70% — operator barely involved ✓</td><td style="padding:11px 16px;font-size:12px;font-weight:300;color:var(--green);">~70% — AI does generation, human guides ✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- LEARNINGS -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Learnings</div><div class="section-header-line"></div></div>
+  <div class="three-grid">
+    <div class="refl-card">
+      <div class="refl-icon">&#128176;</div>
+      <div class="refl-title">Architecture is a cost decision first</div>
+      <div class="refl-desc">The technically superior solution (autonomous n8n + API) was wrong for a startup with 5 onboardings a month. The simpler solution (Custom GPT) was right. Picking the right architecture means understanding usage volume, not just capability. Over-engineering is a real cost.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">&#128161;</div>
+      <div class="refl-title">Custom GPT &ne; automation — it's an AI-assisted tool</div>
+      <div class="refl-desc">A Custom GPT requires a human to open, initiate, and guide each session. It is not a background process. The time savings come from AI doing the generation work — not from removing human involvement. Understanding this distinction matters when scoping what an AI tool can actually do.</div>
+    </div>
+    <div class="refl-card">
+      <div class="refl-icon">&#128296;</div>
+      <div class="refl-title">Prompt engineering is the persistent layer</div>
+      <div class="refl-desc">Both phases required the same core skill: writing prompts that reliably produce structured, on-brand onboarding documents. Whether that prompt lives in an n8n node or a Custom GPT system prompt is an implementation detail. The intellectual work — structuring the output, training on 250+ data points, tuning for consistency — transferred completely across both architectures.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left"><strong>Khai Tran</strong> &middot; Hue Beauty Commerce Startup &middot; Go-to-Market Intern &middot; 2025</div>
   <div class="footer-right">
-    <span class="fpill">HubSpot CRM</span>
-    <span class="fpill">Custom ChatGPT</span>
-    <span class="fpill">OpenAI API</span>
-    <span class="fpill">n8n</span>
-    <span class="fpill">Google Docs API</span>
-    <span class="fpill">70% Time Reduction</span>
+    <span class="fpill">n8n</span><span class="fpill">OpenAI API</span><span class="fpill">Custom GPT</span><span class="fpill">HubSpot</span><span class="fpill">Google Docs API</span><span class="fpill">Prompt Engineering</span>
   </div>
 </footer>
 
 <script>
-  const h = document.getElementById('hamburger');
-  h && h.addEventListener('click', () => h.classList.toggle('open'));
+const h = document.getElementById('hamburger');
+h && h.addEventListener('click', () => h.classList.toggle('open'));
 </script>
 </body>
 </html>
