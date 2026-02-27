@@ -219,7 +219,7 @@ nav {
 }
 .stat-item:last-child { border-right:none; }
 .stat-val {
-  font-size:21px; font-weight:800; line-height:1; margin-bottom:5px;
+  font-size:17px; font-weight:800; line-height:1; margin-bottom:5px;
   color:var(--positive);  /* positive metrics — #44ffbb */
 }
 .stat-val.neutral { color:var(--text); }  /* GPA: academic, not a performance metric */
@@ -508,10 +508,9 @@ footer {
   </a>
   <div class="nav-links">
     <a href="#featured">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#automation">AI & Automation</a>
     <a href="#analytics">Analytics & BI</a>
-    <a class="nav-cta" href="mailto:work.khait@gmail.com">Get in Touch</a>
+    <a href="#automation">AI & Automation</a>
+    <a class="nav-cta" href="/cdn-cgi/l/email-protection#55223a273e7b3e3d343c21153238343c397b363a38">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -520,10 +519,9 @@ footer {
 
 <div class="nav-drawer" id="nav-drawer">
   <a href="#featured"   onclick="closeMenu()">Projects</a>
-  <a href="#skills"     onclick="closeMenu()">Skills</a>
-  <a href="#automation" onclick="closeMenu()">AI & Automation</a>
   <a href="#analytics"  onclick="closeMenu()">Analytics & BI</a>
-  <a href="mailto:work.khait@gmail.com" class="drawer-cta">Get in Touch →</a>
+  <a href="#automation" onclick="closeMenu()">AI & Automation</a>
+  <a href="/cdn-cgi/l/email-protection#f1869e839adf9a99909885b1969c90989ddf929e9c" class="drawer-cta">Get in Touch →</a>
 </div>
 
 <!-- HERO -->
@@ -550,20 +548,20 @@ footer {
     </p>
     <div class="stats-row">
       <div class="stat-item">
-        <div class="stat-val">~$1M</div>
-        <div class="stat-lbl">Monthly Ad Spend</div>
+        <div class="stat-val">0.5–2 yrs</div>
+        <div class="stat-lbl">Experience</div>
       </div>
       <div class="stat-item">
-        <div class="stat-val">93K+</div>
-        <div class="stat-lbl">SKUs Tracked</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-val">70%</div>
-        <div class="stat-lbl">Workflow Time Saved</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-val">3.8</div>
+        <div class="stat-val neutral">3.8</div>
         <div class="stat-lbl">GPA · Dean's List</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">SQL · Tableau</div>
+        <div class="stat-lbl">Now Acquiring</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">🏂 📷</div>
+        <div class="stat-lbl">Interests</div>
       </div>
     </div>
     <div class="hero-actions">
@@ -668,90 +666,153 @@ footer {
   </div>
   <div class="featured-grid">
 
-    <a class="proj-card" href="projects/brand-onboarding.html">
-      <div class="proj-accent acc-cyan"></div>
-      <div class="proj-body">
-        <div class="proj-meta"><div class="proj-type">AI Automation · CRM</div><div class="proj-year">2024</div></div>
-        <div class="proj-title">Brand Onboarding Automation</div>
-        <div class="proj-desc">Built at Hue startup. Wired ChatGPT + n8n to eliminate manual doc creation — from a 2-hour copy-paste process to 20 minutes, triggered in under 5 clicks.</div>
-        <div class="proj-tags">
-          <span class="ptag int">ChatGPT + n8n</span>
-          <span class="ptag mkt">HubSpot</span>
-          <span class="ptag tech">Google Docs API</span>
-          <span class="ptag int">Prompt Engineering</span>
-        </div>
-      </div>
-      <div class="proj-metrics">
-        <div class="pm"><div class="pm-val">&lt;5</div><div class="pm-lbl">Clicks to trigger</div></div>
-        <div class="pm"><div class="pm-val">70%</div><div class="pm-lbl">Time reduction</div></div>
-        <div class="pm"><div class="pm-val">20min</div><div class="pm-lbl">vs 2hr manual</div></div>
-      </div>
-      <div class="proj-cta"><span>View architecture</span><span>→</span></div>
-    </a>
-
+    <!-- 1. WPP × Unilever -->
     <a class="proj-card" href="projects/ecommerce-ads.html">
       <div class="proj-accent acc-orange"></div>
       <div class="proj-body">
         <div class="proj-meta"><div class="proj-type">Performance Marketing · eCommerce</div><div class="proj-year">2021–2023</div></div>
-        <div class="proj-title">Unilever eCommerce & Performance Ads</div>
-        <div class="proj-desc">At GroupM, managed paid social for 12+ Unilever beauty brands across Meta & Google. Built real-time dashboards across 93k+ SKUs. Contributed to Gold-winning MMA SMARTIES APAC campaign.</div>
+        <div class="proj-title">WPP Media × Unilever</div>
+        <div class="proj-desc">Built eCommerce media infrastructure from zero at Mindshare Vietnam — cross-platform ETL, 93k+ SKU reconciliation, real-time dashboards, and a Mega Sale playbook across Shopee, Lazada & Tiki for 12+ Unilever beauty brands.</div>
         <div class="proj-tags">
           <span class="ptag mkt">Meta Ads</span>
           <span class="ptag mkt">Google Ads</span>
           <span class="ptag tech">Looker Studio</span>
           <span class="ptag tech">Power BI</span>
           <span class="ptag tech">ETL Pipelines</span>
+          <span class="ptag mkt">Shopee · Lazada · Tiki</span>
         </div>
       </div>
       <div class="proj-metrics">
-        <div class="pm"><div class="pm-val">93k+</div><div class="pm-lbl">SKUs tracked</div></div>
+        <div class="pm"><div class="pm-val">93k+</div><div class="pm-lbl">SKUs reconciled</div></div>
         <div class="pm"><div class="pm-val">18%+</div><div class="pm-lbl">MoM efficiency gain</div></div>
         <div class="pm"><div class="pm-val neutral">🥇</div><div class="pm-lbl">MMA SMARTIES APAC</div></div>
       </div>
       <div class="proj-cta"><span>View case study</span><span>→</span></div>
     </a>
 
+    <!-- 2. MTA Tableau Dashboard -->
+    <a class="proj-card" href="projects/tableau-mta.html">
+      <div class="proj-accent acc-cyan"></div>
+      <div class="proj-body">
+        <div class="proj-meta"><div class="proj-type">Data Visualisation · Tableau</div><div class="proj-year">2026</div></div>
+        <div class="proj-title">MTA NYC Transit Dashboard</div>
+        <div class="proj-desc">Operational monitoring dashboard for MTA line coordinators — 126K+ rows, 3 live Google Sheets datasources, borough-level heatmaps, KPI rollups, and 7-day ridership trends. Built to Tufte & Few design principles.</div>
+        <div class="proj-tags">
+          <span class="ptag tech">Tableau Desktop</span>
+          <span class="ptag tech">Google Sheets Live</span>
+          <span class="ptag tech">Calculated Fields</span>
+          <span class="ptag tech">Density Heatmap</span>
+          <span class="ptag">MTA Open Data</span>
+        </div>
+      </div>
+      <div class="proj-metrics">
+        <div class="pm"><div class="pm-val">126K+</div><div class="pm-lbl">Rows of subway data</div></div>
+        <div class="pm"><div class="pm-val neutral">3</div><div class="pm-lbl">Live datasources</div></div>
+        <div class="pm"><div class="pm-val neutral">A+</div><div class="pm-lbl">Grade · 88%</div></div>
+      </div>
+      <div class="proj-cta"><span>View dashboard</span><span>→</span></div>
+    </a>
+
+    <!-- 3. Python Project — Coming Soon -->
     <a class="proj-card wip" href="#" onclick="return false;">
       <div class="proj-accent acc-green"></div>
       <div class="wip-badge">Coming Soon</div>
       <div class="proj-body">
-        <div class="proj-meta"><div class="proj-type">Data Visualisation · Tableau</div><div class="proj-year">2026</div></div>
-        <div class="proj-title">Tableau Dashboard Project</div>
-        <div class="proj-desc">Interactive Tableau dashboard — dataset, insight, and full write-up coming soon. Built as part of Northeastern coursework.</div>
+        <div class="proj-meta"><div class="proj-type">Python · Data Science</div><div class="proj-year">2026</div></div>
+        <div class="proj-title">Python Data Science Project</div>
+        <div class="proj-desc">Next Python project in progress — full dataset analysis, modelling, and write-up coming soon as part of Northeastern DS coursework.</div>
         <div class="proj-tags">
-          <span class="ptag tech">Tableau</span>
-          <span class="ptag tech">Data Viz</span>
+          <span class="ptag tech">Python</span>
+          <span class="ptag tech">Pandas</span>
+          <span class="ptag tech">scikit-learn</span>
           <span class="ptag">Northeastern</span>
         </div>
       </div>
       <div class="proj-metrics">
         <div class="pm"><div class="pm-val neutral">TBD</div><div class="pm-lbl">Key metric</div></div>
-        <div class="pm"><div class="pm-val neutral">TBD</div><div class="pm-lbl">Dataset size</div></div>
+        <div class="pm"><div class="pm-val neutral">TBD</div><div class="pm-lbl">Dataset</div></div>
       </div>
       <div class="proj-cta"><span>In progress</span><span>⏳</span></div>
     </a>
 
-    <a class="proj-card wip" href="#" onclick="return false;">
-      <div class="proj-accent acc-warn"></div>
-      <div class="wip-badge">Coming Soon</div>
+    <!-- 4. NIQ Auto Dish -->
+    <a class="proj-card" href="projects/niq-cascade.html">
+      <div class="proj-accent acc-purple"></div>
       <div class="proj-body">
-        <div class="proj-meta"><div class="proj-type">Consumer Insights · CPG</div><div class="proj-year">2025</div></div>
-        <div class="proj-title">NielsenIQ CPG Market Analysis</div>
-        <div class="proj-desc">NielsenIQ University Scholar program. Consumer insights and data analysis across CPG categories using Excel. Write-up coming soon.</div>
+        <div class="proj-meta"><div class="proj-type">Consumer Insights · Regression · CPG</div><div class="proj-year">2025</div></div>
+        <div class="proj-title">NIQ Auto Dish Category Analysis</div>
+        <div class="proj-desc">NielsenIQ University Scholar program. Data-backed pitch for a sustainable product launch — regression modeling (p=0.00057) on NIQ OmniSales data to diagnose category dynamics and project $9.8M incremental GMV.</div>
         <div class="proj-tags">
-          <span class="ptag tech">Excel</span>
-          <span class="ptag mkt">Consumer Insights</span>
-          <span class="ptag">NielsenIQ</span>
-          <span class="ptag mkt">CPG</span>
+          <span class="ptag tech">NIQ OmniSales</span>
+          <span class="ptag tech">Multiple Regression</span>
+          <span class="ptag tech">Excel Data Toolpak</span>
+          <span class="ptag mkt">Shopper Behavior</span>
+          <span class="ptag">SCQA Framework</span>
         </div>
       </div>
       <div class="proj-metrics">
-        <div class="pm"><div class="pm-val neutral">TBD</div><div class="pm-lbl">Categories analyzed</div></div>
-        <div class="pm"><div class="pm-val neutral">2025</div><div class="pm-lbl">Scholar program</div></div>
+        <div class="pm"><div class="pm-val">$2.4B</div><div class="pm-lbl">Category size</div></div>
+        <div class="pm"><div class="pm-val">$9.8M</div><div class="pm-lbl">Incremental GMV</div></div>
+        <div class="pm"><div class="pm-val neutral">p=0.00057</div><div class="pm-lbl">Regression significance</div></div>
       </div>
-      <div class="proj-cta"><span>In progress</span><span>⏳</span></div>
+      <div class="proj-cta"><span>View analysis</span><span>→</span></div>
     </a>
 
+  </div>
+</div>
+
+<!-- ANALYTICS & BI -->
+<div class="section" id="analytics">
+  <div class="cat-section">
+    <div class="cat-label">
+      <div class="cat-dot" style="background:var(--tech)"></div>
+      <div class="cat-title">Analytics & BI</div>
+      <div class="cat-line"></div>
+      <div class="cat-count">4 projects</div>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-card mkt-c" href="projects/ecommerce-ads.html">
+        <div class="cat-card-title">WPP Media × Unilever eCommerce</div>
+        <div class="cat-card-sub">93k+ SKUs. Cross-platform ETL. 18%+ MoM efficiency. MMA SMARTIES APAC Gold.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">Meta Ads</span>
+          <span class="ctag">Looker Studio</span>
+          <span class="ctag">Power BI</span>
+          <span class="ctag">ETL</span>
+          <span class="ctag">Shopee · Lazada · Tiki</span>
+        </div>
+      </a>
+      <a class="cat-card tech-c" href="projects/tableau-mta.html">
+        <div class="cat-card-title">MTA NYC Transit Dashboard</div>
+        <div class="cat-card-sub">126K+ rows. 3 live datasources. Borough heatmaps, KPI rollups, 7-day trend. Northeastern MISM 3501.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">Tableau</span>
+          <span class="ctag">Google Sheets Live</span>
+          <span class="ctag">Calculated Fields</span>
+          <span class="ctag">MTA Open Data</span>
+        </div>
+      </a>
+      <a class="cat-card tech-c" href="projects/niq-cascade.html">
+        <div class="cat-card-title">NIQ Auto Dish Category Analysis</div>
+        <div class="cat-card-sub">$2.4B category. Regression p=0.00057. $9.8M GMV projection. NielsenIQ Scholar 2025.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">NIQ OmniSales</span>
+          <span class="ctag">Regression Modeling</span>
+          <span class="ctag">Excel</span>
+          <span class="ctag">SCQA Framework</span>
+        </div>
+      </a>
+      <div class="cat-card warn-c wip">
+        <div class="cat-card-title">Python Class Project ⏳</div>
+        <div class="cat-card-sub">Next Python data science project in progress. Northeastern DS coursework. Details coming soon.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">Python</span>
+          <span class="ctag">Pandas</span>
+          <span class="ctag">scikit-learn</span>
+          <span class="ctag">Coming Soon</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -762,54 +823,41 @@ footer {
       <div class="cat-dot" style="background:var(--inter)"></div>
       <div class="cat-title">AI & Automation</div>
       <div class="cat-line"></div>
-      <div class="cat-count">2 projects</div>
+      <div class="cat-count">3 projects</div>
     </div>
     <div class="cat-grid">
       <a class="cat-card int-c" href="projects/brand-onboarding.html">
         <div class="cat-card-title">Brand Onboarding Automation</div>
-        <div class="cat-card-sub">ChatGPT + n8n workflow. Human-in-the-loop. 70% time reduction at Hue startup.</div>
-        <div class="cat-card-tags"><span class="ctag">n8n</span><span class="ctag">ChatGPT</span><span class="ctag">HubSpot</span><span class="ctag">Google Docs</span></div>
+        <div class="cat-card-sub">ChatGPT + n8n workflow. Human-in-the-loop. 70% time reduction. Built at Hue startup.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">n8n</span>
+          <span class="ctag">ChatGPT</span>
+          <span class="ctag">HubSpot</span>
+          <span class="ctag">Google Docs API</span>
+          <span class="ctag">Prompt Engineering</span>
+        </div>
       </a>
       <a class="cat-card int-c" href="projects/prompt-alchemy.html">
-        <div class="cat-card-title">Prompt Alchemy</div>
-        <div class="cat-card-sub">Structured prompt engineering framework. 119k record eCommerce dataset. Competition project.</div>
-        <div class="cat-card-tags"><span class="ctag">Prompt Eng.</span><span class="ctag">ChatGPT</span><span class="ctag">AHES</span><span class="ctag">BI</span></div>
+        <div class="cat-card-title">Agentic AI</div>
+        <div class="cat-card-sub">1st Place — structured prompt engineering framework. 119k-record eCommerce dataset. AHES ethics-first approach.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">Prompt Engineering</span>
+          <span class="ctag">ChatGPT</span>
+          <span class="ctag">AHES Framework</span>
+          <span class="ctag">Python</span>
+          <span class="ctag">BI</span>
+        </div>
       </a>
-      <div class="cat-card warn-c wip">
-        <div class="cat-card-title">AI Agent: [Next Project] ⏳</div>
-        <div class="cat-card-sub">Expanding into RAG, Salesforce integration, or predictive automation — TBD.</div>
-        <div class="cat-card-tags"><span class="ctag">Coming Soon</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cat-section" id="analytics">
-    <div class="cat-label">
-      <div class="cat-dot" style="background:var(--tech)"></div>
-      <div class="cat-title">Analytics & BI</div>
-      <div class="cat-line"></div>
-      <div class="cat-count">4 projects</div>
-    </div>
-    <div class="cat-grid">
-      <a class="cat-card mkt-c" href="projects/ecommerce-ads.html">
-        <div class="cat-card-title">Unilever eCommerce & Ads</div>
-        <div class="cat-card-sub">93k+ SKUs. Real-time dashboards. 18%+ MoM efficiency. GroupM / MMA Gold award.</div>
-        <div class="cat-card-tags"><span class="ctag">Meta Ads</span><span class="ctag">Looker Studio</span><span class="ctag">Power BI</span><span class="ctag">ETL</span></div>
-      </a>
-      <a class="cat-card tech-c wip" href="#" onclick="return false;">
-        <div class="cat-card-title">Tableau Dashboard ⏳</div>
-        <div class="cat-card-sub">Interactive data visualisation. Northeastern coursework. Details coming soon.</div>
-        <div class="cat-card-tags"><span class="ctag">Tableau</span><span class="ctag">Data Viz</span><span class="ctag">Coming Soon</span></div>
-      </a>
-      <a class="cat-card warn-c wip" href="#" onclick="return false;">
-        <div class="cat-card-title">NielsenIQ CPG Analysis ⏳</div>
-        <div class="cat-card-sub">Consumer insights across CPG categories. NielsenIQ University Scholar 2025.</div>
-        <div class="cat-card-tags"><span class="ctag">Excel</span><span class="ctag">CPG</span><span class="ctag">NielsenIQ</span><span class="ctag">Coming Soon</span></div>
-      </a>
-      <a class="cat-card tech-c" href="projects/ml-healthcare.html">
+      <a class="cat-card int-c" href="projects/ml-healthcare.html">
         <div class="cat-card-title">ML Healthcare Cost Predictor</div>
-        <div class="cat-card-sub">Python + scikit-learn. HistGradientBoosting. R² 0.863. Deployed as Streamlit app.</div>
-        <div class="cat-card-tags"><span class="ctag">Python</span><span class="ctag">scikit-learn</span><span class="ctag">Streamlit</span><span class="ctag">ML</span></div>
+        <div class="cat-card-sub">R² 0.863. HistGradientBoosting. 1,338 records. Deployed as live Streamlit app.</div>
+        <div class="cat-card-tags">
+          <span class="ctag">Python</span>
+          <span class="ctag">scikit-learn</span>
+          <span class="ctag">Streamlit</span>
+          <span class="ctag">Pandas</span>
+          <span class="ctag">ML</span>
+        </div>
       </a>
     </div>
   </div>
@@ -828,7 +876,7 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const hamburger = document.getElementById('hamburger');
   const drawer    = document.getElementById('nav-drawer');
   hamburger.addEventListener('click', () => {
@@ -839,12 +887,4 @@ footer {
   function closeMenu() {
     drawer.classList.remove('open');
     hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded','false');
-  }
-  document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !drawer.contains(e.target)) closeMenu();
-  });
-</script>
-
-</body>
-</html>
+    hamburger.setAttribu
