@@ -204,10 +204,9 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
 
   <p class="context-note">The original build: a fully autonomous n8n workflow triggered from HubSpot, calling the OpenAI API to generate brand onboarding documents, and writing the output back to Google Docs and HubSpot. <strong>No human needed at execution time</strong> — only at review. Shut down when API token costs became unsustainable for a seed-stage startup with low usage volume.</p>
 
-  <!-- Phase 1 Flowchart — SVG inline -->
-  <div class="flow-wrap" style="margin-bottom:20px;">
+  <div class="flow-wrap" style="margin-bottom:16px;">
     <div class="flow-title">&#9654; Phase 1 Architecture &mdash; n8n Orchestration + OpenAI API + HubSpot + Google Docs</div>
-    <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;display:block;margin:0 auto;font-family:'Google Sans Code',monospace;">
+    <svg viewBox="0 0 900 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;display:block;margin:0 auto;font-family:'Google Sans Code',monospace;">
       <defs>
         <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#adb5bd"/></marker>
         <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#06b6d4"/></marker>
@@ -221,7 +220,6 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="94" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">HubSpot</text>
       <text x="94" y="78" text-anchor="middle" font-size="9" fill="#6e6e73">New company created</text>
 
-      <!-- Arrow right -->
       <line x1="168" y1="58" x2="204" y2="58" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
 
       <!-- N8N ROUTER -->
@@ -231,7 +229,6 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="280" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Merge &amp; normalise fields</text>
       <text x="280" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">Check PDF upload</text>
 
-      <!-- Arrow right -->
       <line x1="354" y1="58" x2="390" y2="58" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-cyan)"/>
 
       <!-- OPENAI API -->
@@ -241,7 +238,6 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="466" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Prompt template</text>
       <text x="466" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">+ brand data inputs</text>
 
-      <!-- Arrow right -->
       <line x1="540" y1="58" x2="576" y2="58" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-cyan)"/>
 
       <!-- HUMAN REVIEW -->
@@ -251,7 +247,6 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="652" y="71" text-anchor="middle" font-size="9" fill="#6e6e73">Email / Slack notify</text>
       <text x="652" y="83" text-anchor="middle" font-size="9" fill="#6e6e73">Approve or revise</text>
 
-      <!-- Arrow right -->
       <line x1="726" y1="58" x2="762" y2="58" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
 
       <!-- GOOGLE DOCS -->
@@ -260,28 +255,21 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="822" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">Google Docs</text>
       <text x="822" y="78" text-anchor="middle" font-size="9" fill="#6e6e73">Doc created + filed</text>
 
-      <!-- REVISION LOOP — arrow back from human to openai -->
-      <path d="M 652,94 Q 652,130 540,130 Q 428,130 466,94" fill="none" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-orange)"/>
-      <text x="554" y="145" text-anchor="middle" font-size="9" fill="#b45309">revision loop</text>
+      <!-- REVISION LOOP -->
+      <path d="M 652,94 Q 652,148 540,148 Q 428,148 466,94" fill="none" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-orange)"/>
+      <text x="554" y="162" text-anchor="middle" font-size="9" fill="#b45309">revision loop</text>
 
       <!-- HUBSPOT UPDATE below Google Docs -->
-      <rect x="764" y="130" width="116" height="52" rx="8" fill="rgba(255,122,89,0.1)" stroke="#ff7a59" stroke-width="1.5"/>
-      <text x="822" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#ff7a59">CRM UPDATE</text>
-      <text x="822" y="166" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">HubSpot</text>
-      <text x="822" y="178" text-anchor="middle" font-size="9" fill="#6e6e73">Write doc URL back</text>
+      <rect x="764" y="106" width="116" height="52" rx="8" fill="rgba(255,122,89,0.1)" stroke="#ff7a59" stroke-width="1.5"/>
+      <text x="822" y="128" text-anchor="middle" font-size="9" font-weight="600" fill="#ff7a59">CRM UPDATE</text>
+      <text x="822" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1d1f">HubSpot</text>
+      <text x="822" y="154" text-anchor="middle" font-size="9" fill="#6e6e73">Write doc URL back</text>
 
-      <!-- Arrow from Google Docs down to HubSpot update -->
-      <line x1="822" y1="86" x2="822" y2="130" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
+      <line x1="822" y1="86" x2="822" y2="106" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#arr1)"/>
 
-      <!-- COST CALLOUT -->
-      <rect x="20" y="170" width="530" height="58" rx="8" fill="rgba(180,83,9,0.05)" stroke="rgba(180,83,9,0.25)" stroke-width="1.2" stroke-dasharray="5,3"/>
-      <text x="285" y="192" text-anchor="middle" font-size="9" font-weight="600" fill="#b45309">&#9888; WHY IT WAS SHUT DOWN</text>
-      <text x="285" y="208" text-anchor="middle" font-size="10" fill="#3a3a3c">OpenAI API charges per token. At low usage volume (seed-stage startup), cost-per-run exceeded the value of automation.</text>
-      <text x="285" y="222" text-anchor="middle" font-size="9" fill="#6e6e73">n8n itself is free (self-hosted). The bottleneck was API billing — not the orchestration layer.</text>
-
-      <!-- INPUTS: PDF, URL, Category (below n8n router) -->
-      <text x="280" y="128" text-anchor="middle" font-size="9" fill="#6e6e73">Inputs: brand PDF &bull; website URL &bull; category examples &bull; 250+ data points</text>
-      <line x1="280" y1="94" x2="280" y2="120" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,2"/>
+      <!-- Inputs label -->
+      <text x="280" y="112" text-anchor="middle" font-size="9" fill="#6e6e73">Inputs: brand PDF &bull; website URL &bull; category examples &bull; 250+ data points</text>
+      <line x1="280" y1="94" x2="280" y2="106" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,2"/>
 
       <!-- FLOW LABELS -->
       <text x="185" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">trigger</text>
@@ -289,6 +277,15 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
       <text x="559" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">notify</text>
       <text x="745" y="50" text-anchor="middle" font-size="8" fill="#aeaeb2">write</text>
     </svg>
+  </div>
+
+  <!-- Cost callout — pulled out of SVG as proper HTML card -->
+  <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(180,83,9,0.05);border:1px solid rgba(180,83,9,0.22);border-radius:10px;padding:14px 18px;margin-bottom:20px;opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;">
+    <div style="font-size:14px;flex-shrink:0;margin-top:1px;">⚠️</div>
+    <div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--warn);margin-bottom:5px;">Why it was shut down</div>
+      <div style="font-size:12px;font-weight:300;color:var(--text-2);line-height:1.65;">OpenAI API charges per token. At low usage volume (seed-stage startup), cost-per-run exceeded the value of automation. <strong style="color:var(--text);font-weight:500;">n8n itself is free (self-hosted)</strong> — the bottleneck was API billing, not the orchestration layer.</div>
+    </div>
   </div>
 
   <!-- Phase 1 tool stack -->
@@ -457,25 +454,28 @@ footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-i
   </div>
 </div>
 
-<!-- LEARNINGS -->
+<!-- KEY TAKEAWAYS -->
 <div class="section">
-  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Learnings</div><div class="section-header-line"></div></div>
-  <div class="three-grid">
-    <div class="refl-card">
-      <div class="refl-icon">&#128176;</div>
-      <div class="refl-title">Architecture is a cost decision first</div>
-      <div class="refl-desc">The technically superior solution (autonomous n8n + API) was wrong for a startup with 5 onboardings a month. The simpler solution (Custom GPT) was right. Picking the right architecture means understanding usage volume, not just capability. Over-engineering is a real cost.</div>
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Key Takeaways</div><div class="section-header-line"></div></div>
+  <div class="two-grid">
+
+    <div class="ic ic-inter" style="animation-delay:0.1s;">
+      <div class="ic-label inter">What I Built as a Skill</div>
+      <div class="ic-title">Prompt engineering is a test &amp; learn process, not a one-shot task</div>
+      <div class="ic-desc">Writing prompts that reliably produce structured, on-brand onboarding docs required iteration — test an output, identify where it broke, revise the instruction, repeat. The same discipline applied in both phases: whether the prompt lived in an n8n node or a Custom GPT system prompt was an implementation detail. <strong>The real skill is knowing what to specify, how to constrain output, and how to read a failure to fix it.</strong> 250+ structured data points trained across both architectures. The prompt work — not the tooling — was what transferred.</div>
     </div>
-    <div class="refl-card">
-      <div class="refl-icon">&#128161;</div>
-      <div class="refl-title">Custom GPT &ne; automation — it's an AI-assisted tool</div>
-      <div class="refl-desc">A Custom GPT requires a human to open, initiate, and guide each session. It is not a background process. The time savings come from AI doing the generation work — not from removing human involvement. Understanding this distinction matters when scoping what an AI tool can actually do.</div>
+
+    <div class="ic ic-green" style="animation-delay:0.2s;">
+      <div class="ic-label green">What I Shipped</div>
+      <div class="ic-title">Deliverables built for handoff, not just for demo</div>
+      <div class="ic-desc">
+        <strong>Process documentation</strong> — full workflow maps for both phases, written so the next person can maintain or rebuild either architecture without starting from scratch.<br><br>
+        <strong>Requirements docs</strong> — structured specs covering input fields, output format, edge cases, and known limitations per architecture.<br><br>
+        <strong>User-friendly tool</strong> — the Custom GPT was built to require zero technical skills. Optional to use; no setup, no training needed. Anyone on the team can open it and run an onboarding.<br><br>
+        <strong>User guide</strong> — written walkthrough doc plus a video walkthrough, covering how to start a session, what inputs to provide, how to handle revisions, and when to escalate.
+      </div>
     </div>
-    <div class="refl-card">
-      <div class="refl-icon">&#128296;</div>
-      <div class="refl-title">Prompt engineering is the persistent layer</div>
-      <div class="refl-desc">Both phases required the same core skill: writing prompts that reliably produce structured, on-brand onboarding documents. Whether that prompt lives in an n8n node or a Custom GPT system prompt is an implementation detail. The intellectual work — structuring the output, training on 250+ data points, tuning for consistency — transferred completely across both architectures.</div>
-    </div>
+
   </div>
 </div>
 
