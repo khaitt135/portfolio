@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Khai Tran</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe6;--surface:#eae3d8;--surface2:#e2dbd0;--border:#d0c9bc;--border2:#bdb5a8;--text:#1d1d1f;--text-2:#3a3a3c;--text-3:#6e6e73;--text-4:#aeaeb2;--mkt:#e85d04;--tech:#0077b6;--inter:#7c3aed;--positive:#2ce247;--warn:#b45309;--green:#166534;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Google Sans Code',monospace;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");background-size:180px 180px;opacity:0.028;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:rgba(244,239,230,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 48px;justify-content:space-between;}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-dot{width:9px;height:9px;border-radius:50%;background:var(--inter);box-shadow:0 0 10px rgba(124,58,237,0.45);animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.72);}}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.18s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--inter);}
+.nav-back{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--inter);border:1.5px solid rgba(124,58,237,0.35);background:rgba(124,58,237,0.05);padding:7px 18px;border-radius:24px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background 0.18s;}
+.nav-back:hover{background:rgba(124,58,237,0.11);}
+.nav-back::before{content:'\2190';}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);flex-direction:column;gap:5px;align-items:flex-end;}
+.nav-hamburger span{display:block;height:1.5px;background:var(--text);border-radius:2px;}
+.nav-hamburger span:nth-child(1){width:22px;}.nav-hamburger span:nth-child(2){width:15px;}.nav-hamburger span:nth-child(3){width:22px;}
+
+/* HERO */
+.page-hero{padding:108px 48px 64px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.blob-wrap{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.blob{position:absolute;border-radius:50%;filter:blur(72px);mix-blend-mode:multiply;animation:blobFloat 8s ease-in-out infinite;}
+.blob-1{width:480px;height:480px;background:radial-gradient(circle,rgba(124,58,237,0.18) 0%,rgba(124,58,237,0) 70%);top:-80px;left:-60px;}
+.blob-2{width:360px;height:360px;background:radial-gradient(circle,rgba(0,119,182,0.14) 0%,rgba(0,119,182,0) 70%);top:5%;right:5%;animation-delay:2s;}
+.blob-3{width:300px;height:300px;background:radial-gradient(circle,rgba(232,93,4,0.12) 0%,rgba(232,93,4,0) 70%);bottom:0;left:40%;animation-delay:4s;}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-12px,14px) scale(0.97);}}
+.hero-inner{position:relative;z-index:2;}
+
+.blog-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.07);border:1.5px solid rgba(124,58,237,0.22);border-radius:6px;padding:6px 14px;margin-bottom:20px;opacity:0;animation:fadeUp 0.5s 0.06s ease forwards;}
+.blog-pill span{font-size:11px;font-weight:600;color:var(--inter);letter-spacing:0.04em;}
+.bp-dot{width:7px;height:7px;border-radius:50%;background:var(--inter);}
+
+.hero-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.6s 0.12s ease forwards;}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--text-3);border-radius:2px;}
+.hero-title{font-size:clamp(32px,4.5vw,58px);font-weight:800;line-height:1.06;letter-spacing:-0.04em;margin-bottom:12px;opacity:0;animation:fadeUp 0.6s 0.18s ease forwards;}
+.hero-subtitle{font-size:clamp(13px,1.7vw,18px);font-weight:300;color:var(--text-3);margin-bottom:32px;opacity:0;animation:fadeUp 0.6s 0.22s ease forwards;}
+
+.blog-nav{display:flex;gap:0;margin-bottom:48px;border-bottom:1px solid var(--border);opacity:0;animation:fadeUp 0.5s 0.28s ease forwards;}
+.blog-tab{font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);text-decoration:none;padding:10px 20px 11px;border-bottom:2px solid transparent;transition:color 0.18s,border-color 0.18s;margin-bottom:-1px;}
+.blog-tab:hover{color:var(--text);}
+.blog-tab.active{color:var(--inter);border-bottom-color:var(--inter);}
+
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto;padding:0 48px 72px;position:relative;z-index:1;}
+.section-header{display:flex;align-items:center;gap:0;margin-bottom:28px;opacity:0;animation:fadeUp 0.5s ease forwards;}
+.sha{width:4px;height:28px;border-radius:2px;margin-right:14px;flex-shrink:0;}
+.sha-inter{background:var(--inter);}.sha-text{background:var(--text-3);}
+.section-header-label{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.02em;margin-right:16px;white-space:nowrap;}
+.section-header-sub{font-size:10px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-right:16px;white-space:nowrap;}
+.section-header-line{flex:1;height:1px;background:var(--border);}
+
+/* WRITING CARDS — live */
+.writing-list{display:flex;flex-direction:column;gap:0;}
+.writing-item{display:flex;align-items:flex-start;gap:24px;padding:22px 0;border-bottom:1px solid var(--border);text-decoration:none;opacity:0;animation:fadeUp 0.5s ease forwards;transition:background 0.15s;position:relative;}
+.writing-item:first-child{padding-top:0;}
+.writing-item:last-child{border-bottom:none;}
+.writing-item:hover .wi-title{color:var(--inter);}
+.writing-item:hover .wi-arrow{opacity:1;transform:translateX(0);}
+.wi-date{font-size:10px;font-weight:400;color:var(--text-4);letter-spacing:0.08em;width:72px;flex-shrink:0;padding-top:3px;line-height:1.4;}
+.wi-body{flex:1;}
+.wi-tag{display:inline-block;font-size:9px;font-weight:500;padding:2px 8px;border-radius:3px;margin-bottom:8px;}
+.wt-mkt{background:rgba(232,93,4,0.08);border:1px solid rgba(232,93,4,0.22);color:var(--mkt);}
+.wt-tech{background:rgba(0,119,182,0.08);border:1px solid rgba(0,119,182,0.22);color:var(--tech);}
+.wt-inter{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.22);color:var(--inter);}
+.wt-neutral{background:rgba(0,0,0,0.04);border:1px solid var(--border);color:var(--text-3);}
+.wi-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3;transition:color 0.18s;}
+.wi-desc{font-size:12px;font-weight:300;color:var(--text-3);line-height:1.65;}
+.wi-arrow{font-size:14px;color:var(--inter);opacity:0;transform:translateX(-6px);transition:opacity 0.18s,transform 0.18s;flex-shrink:0;padding-top:2px;}
+.writing-item:nth-child(1){animation-delay:0.08s;}.writing-item:nth-child(2){animation-delay:0.14s;}.writing-item:nth-child(3){animation-delay:0.20s;}
+
+/* PLACEHOLDER CARDS — coming soon */
+.placeholder-list{display:flex;flex-direction:column;gap:10px;}
+.placeholder-item{display:flex;align-items:center;gap:20px;padding:18px 20px;background:rgba(255,255,255,0.38);border:1px dashed var(--border);border-radius:10px;opacity:0;animation:fadeUp 0.5s ease forwards;}
+.placeholder-item:nth-child(1){animation-delay:0.08s;}.placeholder-item:nth-child(2){animation-delay:0.16s;}.placeholder-item:nth-child(3){animation-delay:0.24s;}.placeholder-item:nth-child(4){animation-delay:0.32s;}
+.pi-tag{font-size:9px;font-weight:500;padding:2px 8px;border-radius:3px;width:80px;text-align:center;flex-shrink:0;}
+.pi-body{flex:1;}
+.pi-title{font-size:13px;font-weight:500;color:var(--text-3);margin-bottom:3px;font-style:italic;}
+.pi-hint{font-size:11px;font-weight:300;color:var(--text-4);}
+.pi-status{font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);flex-shrink:0;}
+
+/* EMPTY STATE */
+.empty-note{font-size:13px;font-weight:300;color:var(--text-3);line-height:1.75;max-width:560px;padding:28px 0 8px;opacity:0;animation:fadeUp 0.5s 0.1s ease forwards;}
+
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;position:relative;z-index:1;background:rgba(244,239,230,0.7);}
+.footer-left{font-size:11px;font-weight:400;color:var(--text-2);}
+.footer-left strong{font-weight:700;color:var(--text);}
+.footer-right{display:flex;gap:8px;flex-wrap:wrap;}
+.fpill{font-size:9px;font-weight:400;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-3);background:rgba(255,255,255,0.48);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){nav{padding:0 24px;}.nav-links{display:none;}.nav-hamburger{display:flex;}.page-hero,.section{padding-left:24px;padding-right:24px;}.page-hero{padding-top:100px;padding-bottom:48px;}footer{padding:22px 24px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html"><div class="nav-logo-dot"></div>Khai Tran</a>
+  <div class="nav-links">
+    <a href="../index.html#featured">Projects</a>
+    <a href="../index.html#analytics">Analytics &amp; BI</a>
+    <a href="../index.html#automation">AI &amp; Automation</a>
+    <a href="index.html" class="active">Blog</a>
+  </div>
+  <a class="nav-back" href="../index.html">Portfolio</a>
+  <button class="nav-hamburger" id="hamburger" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="blob-wrap"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+  <div class="hero-inner">
+    <div class="blog-pill"><div class="bp-dot"></div><span>Blog &middot; Writing</span></div>
+    <div class="hero-eyebrow">Personal Writing &middot; Essays &middot; Notes</div>
+    <h1 class="hero-title">Writing</h1>
+    <div class="hero-subtitle">Things worth writing down — on marketing, data, AI, and the gaps between them</div>
+
+    <div class="blog-nav">
+      <a class="blog-tab" href="index.html">About</a>
+      <a class="blog-tab active" href="writing.html">Writing</a>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLISHED — empty state ready, swap placeholder-list for writing-list when live -->
+<div class="section">
+  <div class="section-header"><div class="sha sha-inter"></div><div class="section-header-label">Published</div><div class="section-header-sub">Add links as pieces go live</div><div class="section-header-line"></div></div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       TO ADD A PIECE: copy one .writing-item block, fill in the fields,
+       and change href to the actual URL (Medium, Substack, Google Doc, etc.)
+       ──────────────────────────────────────────────────────────────────── -->
+
+  <div class="writing-list">
+
+    <!-- TEMPLATE — duplicate this block for each piece -->
+    <a class="writing-item" href="#" onclick="return false;" style="opacity:0.4;pointer-events:none;">
+      <div class="wi-date">Coming<br>soon</div>
+      <div class="wi-body">
+        <span class="wi-tag wt-neutral">Essay</span>
+        <div class="wi-title">Your first piece title goes here</div>
+        <div class="wi-desc">A one-line description of what the piece is about — topic, angle, or key argument.</div>
+      </div>
+      <div class="wi-arrow">→</div>
+    </a>
+
+  </div>
+
+  <p class="empty-note">Nothing published yet — this page will update as pieces go live. Swap the placeholder above with a real link when ready: replace <code style="font-size:10px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;">href="#"</code> with the URL and remove the <code style="font-size:10px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:3px;">onclick</code> + dimmed styles.</p>
+</div>
+
+<!-- IN PROGRESS / TOPICS I'M THINKING ABOUT -->
+<div class="section" style="padding-bottom:80px;">
+  <div class="section-header"><div class="sha sha-text"></div><div class="section-header-label">On the Docket</div><div class="section-header-sub">Topics I'm working through</div><div class="section-header-line"></div></div>
+
+  <div class="placeholder-list">
+
+    <div class="placeholder-item">
+      <span class="pi-tag wt-mkt">Marketing</span>
+      <div class="pi-body">
+        <div class="pi-title">What performance marketing actually measures — and what it doesn't</div>
+        <div class="pi-hint">Attribution models, last-click fallacies, and why the number on the dashboard is never the whole story</div>
+      </div>
+      <div class="pi-status">drafting</div>
+    </div>
+
+    <div class="placeholder-item">
+      <span class="pi-tag wt-inter">AI</span>
+      <div class="pi-body">
+        <div class="pi-title">The cost of the wrong architecture: what rebuilding a tool twice taught me</div>
+        <div class="pi-hint">On choosing n8n + API vs. Custom GPT — and how constraints shape better decisions than capability does</div>
+      </div>
+      <div class="pi-status">drafting</div>
+    </div>
+
+    <div class="placeholder-item">
+      <span class="pi-tag wt-tech">Data</span>
+      <div class="pi-body">
+        <div class="pi-title">Most dashboards don't change decisions — here's why</div>
+        <div class="pi-hint">The gap between a chart that's technically correct and a chart that's operationally useful</div>
+      </div>
+      <div class="pi-status">thinking</div>
+    </div>
+
+    <div class="placeholder-item">
+      <span class="pi-tag wt-neutral">Personal</span>
+      <div class="pi-body">
+        <div class="pi-title">What it's like being a non-CS major who builds things</div>
+        <div class="pi-hint">On learning to code from a business context, what transfers, and what doesn't</div>
+      </div>
+      <div class="pi-status">thinking</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left"><strong>Khai Tran</strong> &middot; Northeastern University &middot; Business Analytics + Data Science &middot; 2026</div>
+  <div class="footer-right">
+    <span class="fpill">Boston, MA</span>
+    <span class="fpill">Marketing Analytics</span>
+    <span class="fpill">Data Engineering</span>
+    <span class="fpill">AI Automation</span>
+  </div>
+</footer>
+
+<script>
+const h = document.getElementById('hamburger');
+h && h.addEventListener('click', () => {
+  const open = h.classList.toggle('open');
+  h.setAttribute('aria-expanded', open);
+});
+</script>
+</body>
+</html>
